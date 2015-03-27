@@ -10,5 +10,5 @@ SOURCES += \
 
 HEADERS += \
     Exercice7_io.h \
-    Exercice7_calcul_donnee.h
+    Exercice7_calcul.h
 

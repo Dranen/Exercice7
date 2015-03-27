@@ -4,7 +4,7 @@
 #include <vector>
 #include <iostream>
 
-#include "Exercice7_calcul_donnee.h"
+#include "Exercice7_calcul.h"
 
 //
 // this is specialication function for the simplified output
@@ -130,6 +130,25 @@ void contexte_bord(std::string bord, boundary_condition& bc, double& boundaryval
       std::cerr << "Angular frequency omega of the excitation? " << std::flush;
       std::cin >> omega;
     }
+}
+
+void contexte_scan_frequence(int& nscan, double& omega, double& omega_start, double& omega_stop, double& delta_omega)
+{
+    omega_start = omega;
+    omega_stop = omega;
+
+    std::cerr << "number of frequencies to scan? " << std::flush;
+    std::cin >> nscan;
+
+    if (nscan > 1) // do a frequency scan only if you are interested in more than 1 frequency
+      {
+        std::cerr << "scan from omega-start=omega to omega-end=? " << std::flush;
+        std::cin >> omega_stop;
+        omega_start = omega;
+        delta_omega = (omega_stop - omega_start)/nscan;
+      }
+
+    omega = omega_start;
 }
 
 #endif // EXERCICE7_IO_H

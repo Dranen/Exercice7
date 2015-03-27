@@ -4,12 +4,12 @@
 #include <cassert>
 #include <cstdlib>
 #include <cmath>
+#include <vector>
 
 typedef enum {fixed,free,excited,outgoing} boundary_condition;
 
-//
+
 // function object for the position dependent velocity
-//
 class u_squared {
 public:
 
@@ -66,10 +66,8 @@ private:
   int ucase;
 };
 
-//
-// calculate the energy of the wave
-//
 
+// calculate the energy of the wave
 double get_energy(const std::vector<double>& f, const double dx)
 {
   int npos = f.size();
@@ -79,6 +77,34 @@ double get_energy(const std::vector<double>& f, const double dx)
     erg +=0; //TODO: calculer l'energie.
 
   return erg * dx;
+}
+
+
+inline void calcul_condition_bord(boundary_condition const& bc, double const& boundaryvalue, double const& A, double const& omega, double const& t, std::vector<double> *fnow, std::vector<double> *fnext, int i)
+{
+    switch(bc)
+      {
+      case fixed:
+        fnow->[i] = boundaryvalue;
+        fnext->[i] = fnow->[i];
+        break;
+
+      case free:
+        //TODO: Mettre le code du calcul de la condition de bord droit libre.
+        break;
+
+      case excited:
+        fnext->[i] = A * sin(omega * t);
+        break;
+
+      case outgoing:
+        //TODO: Mettre le code du calcul de la condition de bord droit sortante.
+        break;
+
+      default:
+        std::cerr << "No valid boundary condition given" <<std::endl;
+        break;
+      }
 }
 
 #endif // EXERCICE7_CALCUL_DONNEE_H
