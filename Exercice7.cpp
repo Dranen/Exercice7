@@ -5,6 +5,8 @@
 #include <cassert> 
 #include <cstdlib> 
 
+#include "Exercice7_io.h"
+
 using namespace std;
 
 // 
@@ -103,27 +105,14 @@ std::ostream& operator << (std::ostream& o, const std::vector<T>& v)
 // The main program
 //
 int main() 
-{
-    //double pi = 3.14159265358979;
-  
-    int Ninter,eqref;
-  cerr << "number of grid points? " << flush;
-  cin >> Ninter;
-  int Npos = Ninter+1;
-  
-  double xL, xR, hocean = 0, xocean=0,hplage=0;
-  
-  int ucase;
-  cerr << "xL? " << flush;
-  cin >> xL;
-  cerr << "xR? " << flush;
-  cin >> xR;
-  cerr << "Quelle equation (1) ou (2)?"<<flush;
-  cin >> eqref;
-  cerr << "quel question? 7.2 (taper 0) / 7.3 (taper 1) / 7.4 (taper 2):" << flush;
-  cin >> ucase;
-  
-  double dx=(xR - xL) / Ninter;
+{ 
+  int Ninter,eqref, ucase, Npos;
+  double xL, xR, hocean = 0, xocean=0,hplage=0, dx;
+
+  contexte_general(Ninter, xL, XR, eqref, ucase);
+
+  Npos = Ninter+1;
+  dx=(xR - xL) / Ninter;
   
   double u,uL,uR;
   u_squared u2;

@@ -6,3 +6,6 @@ CONFIG -= qt
 SOURCES += \
     Exercice7.cpp
 
+HEADERS += \
+    Exercice7_io.h
+
