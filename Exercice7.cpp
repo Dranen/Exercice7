@@ -16,107 +16,31 @@ using namespace std;
 int main() 
 { 
   int Ninter,eqref, ucase, Npos;
-  double xL, xR, dx, u2_max=0, tfinal = 0, dt;
+  double xL, xR, dx, u2_max=0, tfinal = 0, dt, leftboundaryvalue = 0, rightboundaryvalue = 0, A=1., omega=0.;
   u_squared u2;
+  std::vector<double> *fpast, *fnow, *fnext, *coeff;
+  boundary_condition left_bc, right_bc;
 
   contexte_general(Ninter, xL, XR, eqref, ucase);
 
   Npos = Ninter+1;
   dx=(xR - xL) / Ninter;
 
-  std::vector<double> fpast(Npos), fnow(Npos), fnext(Npos), coeff(Npos);
-
   contexte_vitesse(ucase, xL, xR, dx, Npos, u2_max, u2);
   contexte_temporelle(dt, tfinal);
 
+  fpast = new vector<double>(Npos);
+  fnow = new vector<double>(Npos);
+  fnext = new vector<double>(Npos);
+  coeff = new vector<double>(Npos);
   
   // coeff is beta^2
   for(int ip = 0; ip < Npos; ++ip)
-    coeff[ip] = u2(xL+ip*dx) * dt * dt / (dx * dx);
+    coeff->[ip] = u2(xL+ip*dx) * dt * dt / (dx * dx);
   
-  typedef enum {fixed,free,excited,outgoing} boundary_condition;
-  
-  boundary_condition left_bc;
-  boundary_condition right_bc;
-  
-  int n;
-  cerr << "left boundary condition (fixed = 0, free = 1, excited = 2, outgoing = 3)? " << flush;
-  cin >> n;
-  
-  switch(n)
-    {
-    case 0:
-      left_bc = fixed;
-      break;
+  contexte_bord("left", left_bc, leftboundaryvalue, A, omega);
+  contexte_bord("right", right_bc, rightboundaryvalue, A, omega);
 
-    case 1:
-      left_bc = free;
-      break;
-
-    case 2:
-      left_bc = excited;
-      break;
-
-    case 3:
-      left_bc = outgoing;
-      break;
-      
-    default:
-      cerr << "no valid left boundary condition!";
-      return 1;
-      
-    }
-
-  cerr << "right boundary condition (fixed = 0, free = 1, excited = 2, outgoing = 3)? " << flush;
-  cin >> n;
-  switch(n)
-    {
-    case 0:
-      right_bc = fixed;
-      break;
-
-    case 1:
-      right_bc = free;
-      break;
-
-    case 2:
-      right_bc = excited;
-      break;
-
-    case 3:
-      right_bc = outgoing;
-      break;
-      
-    default:
-      cerr << "no valid left boundary condition!";
-      return 1;
-      
-    }
-
-  double leftboundaryvalue = 0, rightboundaryvalue = 0;
-  if(left_bc == fixed)
-    {
-      cerr << "for fixed left boundary condition: value of f at the left boundary? " << flush;
-      cin >> leftboundaryvalue;
-    }
-  
-  if(right_bc == fixed)
-    {
-      cerr << "for fixed right boundary condition: value of f at the right boundary? " << flush;
-      cin >> rightboundaryvalue;
-    }
-
-  double A = 1.;
-  double omega = 0;
- 
-  if(left_bc == excited || right_bc == excited)
-    {
-      cerr << "Amplitude of the excitation? " << flush;
-      cin >> A;
-      cerr << "Angular frequency omega of the excitation? " << flush;
-      cin >> omega;
-    }
-  
   // open output file streams
   
   ofstream p_u_ofs("pos_usquared.dat");

@@ -5,6 +5,8 @@
 #include <cstdlib>
 #include <cmath>
 
+typedef enum {fixed,free,excited,outgoing} boundary_condition;
+
 //
 // function object for the position dependent velocity
 //

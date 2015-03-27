@@ -43,28 +43,28 @@ void contexte_vitesse(int const& ucase, double const& xL, double const& xR, doub
     double uL, uR, u, hocean = 0, xocean=0, hplage=0;
     switch(ucase){
       case 0:
-        cerr << "value of u? " << flush;
-        cin >> u;
+        std::cerr << "value of u? " << std::flush;
+        std::cin >> u;
         u2 = u_squared(u);
         u2_max = u2(0);
         break;
       case 1:
-        cerr << "u_L? " << flush;
-        cin >> uL;
-        cerr << "u_R? " << flush;
-        cin >> uR;
+        std::cerr << "u_L? " << std::flush;
+        std::cin >> uL;
+        std::cerr << "u_R? " << std::flush;
+        std::cin >> uR;
         u2 = u_squared(uL,uR,xL,xR);
         for(int ip = 0; ip < Npos; ++ip)
       if(u2(xL+ip*dx) > u2_max)
         u2_max = u2(xL+ip*dx);
         break;
       case 2:
-        cerr << "hOcean? " << endl;
-        cin >> hocean;
-        cerr << "xOcean? " << endl;
-        cin >> xocean;
-        cerr << "hPlage? " << endl;
-        cin >> hplage;
+        std::cerr << "hOcean? " << std::endl;
+        std::cin >> hocean;
+        std::cerr << "xOcean? " << std::endl;
+        std::cin >> xocean;
+        std::cerr << "hPlage? " << std::endl;
+        std::cin >> hplage;
         u2 = u_squared(xL, xR, hocean, xocean, hplage);
         for(int ip = 0; ip < Npos; ++ip)
       if(u2(xL+ip*dx) > u2_max)
@@ -72,20 +72,64 @@ void contexte_vitesse(int const& ucase, double const& xL, double const& xR, doub
         break;
      }
 
-     cout << "u2_max="<<u2_max <<endl;
+     std::cout << "u2_max="<<u2_max <<std::endl;
 }
 
 void contexte_temporelle(double& dt, double& tfinal)
 {
     double CFL;
-    cerr << "max CFL coefficent? " << flush;
-    cin >> CFL;
+    std::cerr << "max CFL coefficent? " << std::flush;
+    std::cin >> CFL;
 
     dt = CFL * dx / sqrt(u2_max);
 
-    cout << "dt=" << dt << endl;
-    cerr << "tfinal? " << flush;
-    cin >> tfinal;
+    std::cout << "dt=" << dt << std::endl;
+    std::cerr << "tfinal? " << std::flush;
+    std::cin >> tfinal;
+}
+
+void contexte_bord(std::string bord, boundary_condition& bc, double& boundaryvalue, double& A, double& omega)
+{
+    int n;
+    std::cerr << bord << " boundary condition (fixed = 0, free = 1, excited = 2, outgoing = 3)? " << std::flush;
+    std::cin >> n;
+
+    switch(n)
+      {
+      case 0:
+        bc = fixed;
+        break;
+
+      case 1:
+        bc = free;
+        break;
+
+      case 2:
+        bc = excited;
+        break;
+
+      case 3:
+        bc = outgoing;
+        break;
+
+      default:
+        std::cerr << "no valid " << bord << " boundary condition!";
+        throw "no valid boundary condition!";
+      }
+
+  if(bc == fixed)
+  {
+    std::cerr << "for fixed left boundary condition: value of f at the left boundary? " << std::flush;
+    std::cin >> boundaryvalue;
+  }
+
+  if(bc == excited)
+    {
+      std::cerr << "Amplitude of the excitation? " << std::flush;
+      std::cin >> A;
+      std::cerr << "Angular frequency omega of the excitation? " << std::flush;
+      std::cin >> omega;
+    }
 }
 
 #endif // EXERCICE7_IO_H
