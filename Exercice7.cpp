@@ -19,22 +19,20 @@ public:
   
   // constant u: set all private variables to zero but u2_ and uconst_ 
   u_squared(double u) :
-  u2(u*u),ucase(0)
+  u2(u*u),ucase(0),g(9.81)
   {}
   u_squared(double u_L,double u_R,double xL_, double xR_) :
-  u2_L(u_L*u_L),u2_R(u_R*u_R),xL(xL_),xR(xR_),hocean(0),ucase(1)
+  u2_L(u_L*u_L),u2_R(u_R*u_R),xL(xL_),xR(xR_),hocean(0),ucase(1),g(9.81)
   {}
   
   // variable u: use all possible parameters
   u_squared(double xL_, double xR_, double hOcean_, double xOcean_, double hPlage_) :
-    xL(xL_),xR(xR_),hocean(hOcean_),xocean(xOcean_),hplage(hPlage_),ucase(2) 
+    xL(xL_),xR(xR_),hocean(hOcean_),xocean(xOcean_),hplage(hPlage_),ucase(2) ,g(9.81)
   {}
   
   // return the value of u^2(x) at position x for all possible cases:
   double operator()(double x) 
   {
-    double g = 9.81;
-    
     switch(ucase)
     {
     case 0:
@@ -53,7 +51,7 @@ public:
             double tmp = sin(M_PI * (x - xocean) / (2.0 * (xR - xocean)));
             u2 = g * (hocean + (hplage - hocean) * tmp*tmp );	  
 	  }
-      }
+     }
     
     double result = u2;
     
@@ -64,7 +62,7 @@ public:
   }
   
 private:
-  double u2_L,u2_R,u2,  xL, xR, hocean,xocean,hplage;
+  double u2_L,u2_R,u2,  xL, xR, hocean,xocean,hplage, g;
   int ucase;
 };
 
