@@ -1,4 +1,4 @@
-<pre><div class="text_to_html">#include <iostream> 
+#include <iostream>
 #include <vector> 
 #include <fstream> 
 #include <cmath> 
@@ -442,4 +442,3 @@ int main()
   energy_ofs.close();
   maxenergy_ofs.close();
 }
-</div></pre>
