@@ -4,6 +4,8 @@
 #include <vector>
 #include <iostream>
 
+#include "Exercice7_calcul_donnee.h"
+
 //
 // this is specialication function for the simplified output
 // of std:vector's without the need of writing all the
@@ -36,5 +38,54 @@ void contexte_general(int& Ninter, double& xL, double& xR, int& eqref, int& ucas
     std::cin >> ucase;
 }
 
+void contexte_vitesse(int const& ucase, double const& xL, double const& xR, double const& dx, int const& Npos, double& u2_max, u_squared& u2)
+{
+    double uL, uR, u, hocean = 0, xocean=0, hplage=0;
+    switch(ucase){
+      case 0:
+        cerr << "value of u? " << flush;
+        cin >> u;
+        u2 = u_squared(u);
+        u2_max = u2(0);
+        break;
+      case 1:
+        cerr << "u_L? " << flush;
+        cin >> uL;
+        cerr << "u_R? " << flush;
+        cin >> uR;
+        u2 = u_squared(uL,uR,xL,xR);
+        for(int ip = 0; ip < Npos; ++ip)
+      if(u2(xL+ip*dx) > u2_max)
+        u2_max = u2(xL+ip*dx);
+        break;
+      case 2:
+        cerr << "hOcean? " << endl;
+        cin >> hocean;
+        cerr << "xOcean? " << endl;
+        cin >> xocean;
+        cerr << "hPlage? " << endl;
+        cin >> hplage;
+        u2 = u_squared(xL, xR, hocean, xocean, hplage);
+        for(int ip = 0; ip < Npos; ++ip)
+      if(u2(xL+ip*dx) > u2_max)
+        u2_max = u2(xL+ip*dx);
+        break;
+     }
+
+     cout << "u2_max="<<u2_max <<endl;
+}
+
+void contexte_temporelle(double& dt, double& tfinal)
+{
+    double CFL;
+    cerr << "max CFL coefficent? " << flush;
+    cin >> CFL;
+
+    dt = CFL * dx / sqrt(u2_max);
+
+    cout << "dt=" << dt << endl;
+    cerr << "tfinal? " << flush;
+    cin >> tfinal;
+}
 
 #endif // EXERCICE7_IO_H

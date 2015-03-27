@@ -7,5 +7,6 @@ SOURCES += \
     Exercice7.cpp
 
 HEADERS += \
-    Exercice7_io.h
+    Exercice7_io.h \
+    Exercice7_calcul_donnee.h
 

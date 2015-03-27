@@ -6,100 +6,9 @@
 #include <cstdlib> 
 
 #include "Exercice7_io.h"
+#include "Exercice7_calcul_donnee.h"
 
 using namespace std;
-
-// 
-// function object for the position dependent velocity
-//
-class u_squared {
-public:
-  
-  // standard constructor
-  u_squared()
-  {}
-  
-  // constant u: set all private variables to zero but u2_ and uconst_ 
-  u_squared(double u) :
-  u2(u*u),ucase(0),g(9.81)
-  {}
-  u_squared(double u_L,double u_R,double xL_, double xR_) :
-  u2_L(u_L*u_L),u2_R(u_R*u_R),xL(xL_),xR(xR_),hocean(0),ucase(1),g(9.81)
-  {}
-  
-  // variable u: use all possible parameters
-  u_squared(double xL_, double xR_, double hOcean_, double xOcean_, double hPlage_) :
-    xL(xL_),xR(xR_),hocean(hOcean_),xocean(xOcean_),hplage(hPlage_),ucase(2) ,g(9.81)
-  {}
-  
-  // return the value of u^2(x) at position x for all possible cases:
-  double operator()(double x) 
-  {
-    switch(ucase)
-    {
-    case 0:
-      break;
-      
-    case 1:
-      u2 = u2_L+(u2_R-u2_L)*(x-xL)/(xR-xL);
-      break;
-      
-    case 2:
-	
-	if (x <= xocean)
-          u2 = g * hocean;
-	else
-	  {
-            double tmp = sin(M_PI * (x - xocean) / (2.0 * (xR - xocean)));
-            u2 = g * (hocean + (hplage - hocean) * tmp*tmp );	  
-	  }
-     }
-    
-    double result = u2;
-    
-    assert(result > 0);
-    
-    return result;
-    
-  }
-  
-private:
-  double u2_L,u2_R,u2,  xL, xR, hocean,xocean,hplage, g;
-  int ucase;
-};
-
-//
-// calculate the energy of the wave 
-//
-
-double get_energy(const std::vector<double>& f, const double dx) 
-{
-  int npos = f.size();
-  
-  double erg = 0.;	
-  for(int ip = 0; ip < (npos - 1); ++ip)
-    erg +=0; //TODO: calculer l'energie.
-  
-  return erg * dx;
-}
-
-//
-// this is specialication function for the simplified output
-// of std:vector's without the need of writing all the
-// elements oneself
-//
-template <class T> 
-std::ostream& operator << (std::ostream& o, const std::vector<T>& v) 
-{
-  int len = v.size();
-  for(int i = 0; i < (len - 1); ++i)
-    o << v[i] << " ";
-  
-  if(len > 0)
-    o << v[len-1];
-  
-  return o;
-}
 
 //
 // The main program
@@ -107,64 +16,19 @@ std::ostream& operator << (std::ostream& o, const std::vector<T>& v)
 int main() 
 { 
   int Ninter,eqref, ucase, Npos;
-  double xL, xR, hocean = 0, xocean=0,hplage=0, dx;
+  double xL, xR, dx, u2_max=0, tfinal = 0, dt;
+  u_squared u2;
 
   contexte_general(Ninter, xL, XR, eqref, ucase);
 
   Npos = Ninter+1;
   dx=(xR - xL) / Ninter;
-  
-  double u,uL,uR;
-  u_squared u2;
-  double u2_max = 0;  
-  switch(ucase){
-    case 0:
-      cerr << "value of u? " << flush;
-      cin >> u;
-      u2 = u_squared(u);
-      u2_max = u2(0);
-      break;
-    case 1:
-      cerr << "u_L? " << flush;
-      cin >> uL;
-      cerr << "u_R? " << flush;
-      cin >> uR;
-      u2 = u_squared(uL,uR,xL,xR);
-      for(int ip = 0; ip < Npos; ++ip)
-	if(u2(xL+ip*dx) > u2_max)
-	  u2_max = u2(xL+ip*dx);  
-      break;  
-    case 2:
-      cerr << "hOcean? " << endl;
-      cin >> hocean;
-      cerr << "xOcean? " << endl;
-      cin >> xocean;
-      cerr << "hPlage? " << endl;
-      cin >> hplage;
-      u2 = u_squared(xL, xR, hocean, xocean, hplage); 
-      for(int ip = 0; ip < Npos; ++ip)
-	if(u2(xL+ip*dx) > u2_max)
-	  u2_max = u2(xL+ip*dx);
-      break;
-   }
-   
-   cout << "u2_max="<<u2_max <<endl;
-  
-  
-//   double u0 = u2(xL);
-  
-  double CFL;
-  cerr << "max CFL coefficent? " << flush;
-  cin >> CFL;
-  
-  double dt = CFL * dx / sqrt(u2_max);
-  
-  cout << "dt=" << dt << endl;
-  double tfinal = 0;
-  cerr << "tfinal? " << flush;
-  cin >> tfinal;
-  
+
   std::vector<double> fpast(Npos), fnow(Npos), fnext(Npos), coeff(Npos);
+
+  contexte_vitesse(ucase, xL, xR, dx, Npos, u2_max, u2);
+  contexte_temporelle(dt, tfinal);
+
   
   // coeff is beta^2
   for(int ip = 0; ip < Npos; ++ip)
@@ -232,7 +96,7 @@ int main()
   double leftboundaryvalue = 0, rightboundaryvalue = 0;
   if(left_bc == fixed)
     {
-      cerr << "for fixed right boundary condition: value of f at the right boundary? " << flush;
+      cerr << "for fixed left boundary condition: value of f at the left boundary? " << flush;
       cin >> leftboundaryvalue;
     }
   
