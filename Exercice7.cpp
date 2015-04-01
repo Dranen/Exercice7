@@ -112,10 +112,19 @@ int main()
       do
       {
             //cout << " time evolution: " << t << endl;
-
-            for(int ip = 1; ip < (Npos - 1); ++ip)
+            if(eqref == 1)
             {
-                //TODO: mettre le code du shema numerique des equations (1) et (2).
+                for(int ip = 1; ip < (Npos - 1); ++ip)
+                {
+                    //TODO: mettre le code du shema numerique des equations (1).
+                }
+            }
+            else if(eqref == 2)
+            {
+                for(int ip = 1; ip < (Npos - 1); ++ip)
+                {
+                    //TODO: mettre le code du shema numerique des equations (2).
+                }
             }
 
 
@@ -154,7 +163,7 @@ int main()
 
   delete fpast;
   delete fnow;
-  delete fnext
+  delete fnext;
   
   w_ofs.close();
   energy_ofs.close();
