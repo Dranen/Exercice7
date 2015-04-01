@@ -151,6 +151,10 @@ int main()
       omega += delta_omega;
       
     } // end of frequency scan loop -------------------
+
+  delete fpast;
+  delete fnow;
+  delete fnext
   
   w_ofs.close();
   energy_ofs.close();
