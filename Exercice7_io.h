@@ -24,8 +24,10 @@ std::ostream& operator << (std::ostream& o, const std::vector<T>& v)
   return o;
 }
 
-void contexte_general(int& Ninter, double& xL, double& xR, int& eqref, int& ucase)
+void contexte_general(std::string nom ,int& Ninter, double& xL, double& xR, int& eqref, int& ucase)
 {
+    std::cerr << "Nom de la simulation " << std::flush;
+    std::cin >> nom;
     std::cerr << "Number of grid points? " << std::flush;
     std::cin >> Ninter;
     std::cerr << "xL? " << std::flush;

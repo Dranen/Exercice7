@@ -21,24 +21,28 @@ int main()
   u_squared u2;
   std::vector<double> *fpast, *fnow, *fnext, *coeff, *temp, *u, *u_2, *beta;
   boundary_condition left_bc, right_bc;
-
-  // open output file streams
-
-  ofstream p_u_ofs("pos_usquared.dat");
-  p_u_ofs.precision(15);
-
-  ofstream w_ofs("wave.dat");
-  w_ofs.precision(15);
-
-  ofstream energy_ofs ("energy.dat");
-  energy_ofs.precision(15);
-
-  ofstream maxenergy_ofs ("maxenergy.dat");
-  maxenergy_ofs.precision(15);
+  std::string nom;
 
   //initialisation des différentes valeurs
 
-  contexte_general(Ninter, xL, XR, eqref, ucase);
+  contexte_general(nom, Ninter, xL, XR, eqref, ucase);
+
+
+  // open output file streams
+
+  ofstream p_u_ofs(nom + "_pos_usquared.dat");
+  p_u_ofs.precision(15);
+
+  ofstream w_ofs(nom+"_wave.dat");
+  w_ofs.precision(15);
+
+  ofstream energy_ofs (nom+"_energy.dat");
+  energy_ofs.precision(15);
+
+  ofstream maxenergy_ofs (nom+"_maxenergy.dat");
+  maxenergy_ofs.precision(15);
+
+
 
   Npos = Ninter+1;
   dx=(xR - xL) / Ninter;
