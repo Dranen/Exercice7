@@ -80,17 +80,23 @@ double get_energy(const std::vector<double>& f, const double dx)
 }
 
 
-inline void calcul_condition_bord(boundary_condition const& bc, double const& boundaryvalue, double const& A, double const& omega, double const& t, std::vector<double> *fnow, std::vector<double> *fnext, int i)
+inline void calcul_condition_bord(bool gauche, boundary_condition const& bc, double const& boundaryvalue, double const& A, double const& omega, double const& t, std::vector<double> *fnow, std::vector<double> *fnext, int i, double beta)
 {
     switch(bc)
       {
       case fixed:
-        fnow->[i] = boundaryvalue;
-        fnext->[i] = fnow->[i];
+        (*fnext)[i] = boundaryvalue;
         break;
 
       case free:
-        //TODO: Mettre le code du calcul de la condition de bord droit libre.
+        if(gauche)
+        {
+            (*fnext)[i] = (*fnext)[i+1];
+        }
+        else
+        {
+            (*fnext)[i] = (*fnext)[i-1];
+        }
         break;
 
       case excited:
@@ -98,7 +104,14 @@ inline void calcul_condition_bord(boundary_condition const& bc, double const& bo
         break;
 
       case outgoing:
-        //TODO: Mettre le code du calcul de la condition de bord droit sortante.
+        if(gauche)
+        {
+            (*fnext)[i] = (*fnow)[i]-beta*((*fnow)[i+1]-(*fnow)[i]);
+        }
+        else
+        {
+            (*fnext)[i] = (*fnow)[i]-beta*((*fnow)[i]-(*fnow)[i-1]);
+        }
         break;
 
       default:

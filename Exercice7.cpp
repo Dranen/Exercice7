@@ -141,9 +141,9 @@ int main()
             // apply boundary conditions
             //
             // left boundary (at xL)
-            calcul_condition_bord(left_bc, leftboundaryvalue, A, omega, t, fnow, fnext, 0, (*beta)[i]);
+            calcul_condition_bord(true, left_bc, leftboundaryvalue, A, omega, t, fnow, fnext, 0, (*beta)[0]);
             // right boundary (at xr)
-            calcul_condition_bord(right_bc, rightboundaryvalue, A, omega, t, fnow, fnext, Ninter, (*beta)[i]);
+            calcul_condition_bord(false, right_bc, rightboundaryvalue, A, omega, t, fnow, fnext, Npos, (*beta)[Npos]);
 
             t += dt;
 
