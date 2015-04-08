@@ -152,7 +152,7 @@ int main()
             fnow  = fnext;
             fnext = temp;
 
-            double energy = get_energy(fnow,dx);
+            double energy = get_energy((*fnow),dx);
 
             if(energy > maxenergy)
               maxenergy = energy;

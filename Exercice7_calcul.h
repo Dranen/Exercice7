@@ -74,7 +74,7 @@ double get_energy(const std::vector<double>& f, const double dx)
 
   double erg = 0.;
   for(int ip = 0; ip < (npos - 1); ++ip)
-    erg +=0; //TODO: calculer l'energie.
+    erg += f[i]*f[i] + f[i+1]*f[i+1];
 
   return erg * dx;
 }
