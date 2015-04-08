@@ -123,7 +123,7 @@ int main()
             {
                 for(int ip = 1; ip < (Npos - 1); ++ip)
                 {
-                    //TODO: mettre le code du shema numerique des equations (2).
+                    fnext[i] = dt*dt*((2*(sqrt(u2(x[i])))*(sqrt(u2(x[i+1]))-sqrt(u2(x[i-1])))*(fnow[i+1]-fnow[i-1])) + (u2(x[i])*(fnow[i+1]-2*fnow[i]+fnow[i-1])))/(dx*dx) + 2*fnow[i] - fpast[i];
                 }
             }
 
