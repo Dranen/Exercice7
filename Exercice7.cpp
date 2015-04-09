@@ -100,24 +100,24 @@ int main()
        for(int ip = 0; ip < Npos; ++ip)
        {
           if(ucase==2){
-            x = ((double) ip)*dx-xo;
-            fnow->[ip] = exp(-x*x/2.5e9);
-            fpast->[ip]=fnow->[ip];
+            x = static_cast<double>(ip)*dx-xo;
+            (*fnow)[ip] = exp(-x*x/2.5e9);
+            (*fpast)[ip]=(*fnow)[ip];
           }else{
-            fpast->[ip] = 0.0;
-            fnow->[ip] = 0.0;
+            (*fpast)[ip] = 0.0;
+            (*fnow)[ip] = 0.0;
           }
        }
 
 
       // output the positions and the phase velocity squared for plotting purposes
       t = 0;
-      energy = get_energy(fnow,dx);
+      energy = get_energy(*fnow,dx);
       maxenergy = energy;
       
       if(jscan == 0) 
       {
-        w_ofs << t << " " << fnow << endl;
+        w_ofs << t << " " << *fnow << endl;
         energy_ofs << t << " " << energy << endl;
       }
       
@@ -163,7 +163,7 @@ int main()
 
             if(nscan == 1)
               {
-                w_ofs << t<< " " << fnow << endl;
+                w_ofs << t<< " " << *fnow << endl;
                 energy_ofs << t << " " << energy << endl;
               }
 
