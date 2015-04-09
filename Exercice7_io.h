@@ -77,7 +77,7 @@ void contexte_vitesse(int const& ucase, double const& xL, double const& xR, doub
      std::cout << "u2_max="<<u2_max <<std::endl;
 }
 
-void contexte_temporelle(double& dt, double& tfinal)
+void contexte_temporelle(double& dt, double& tfinal, double const& dx, double const& u2_max)
 {
     double CFL;
     std::cerr << "max CFL coefficent? " << std::flush;
@@ -103,7 +103,7 @@ void contexte_bord(std::string bord, boundary_condition& bc, double& boundaryval
         break;
 
       case 1:
-        bc = free;
+        bc = libre;
         break;
 
       case 2:

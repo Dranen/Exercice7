@@ -19,26 +19,29 @@ int main()
   double xL, xR, dx, u2_max=0, tfinal = 0, dt, leftboundaryvalue = 0, rightboundaryvalue = 0;
   double A=1., omega=0., omega_start, omega_stop, delta_omega = 0.0, t, energy, maxenergy;
   u_squared u2;
-  std::vector<double> *fpast, *fnow, *fnext, *coeff, *temp, *u, *u_2, *beta;
+  std::vector<double> *fpast, *fnow, *fnext, *coeff, *temp, *u_1, *u_2, *beta;
   boundary_condition left_bc, right_bc;
-  std::string nom;
+  std::string nom, provisoire;
 
   //initialisation de parametres généraux
-  contexte_general(nom, Ninter, xL, XR, eqref, ucase);
+  contexte_general(nom, Ninter, xL, xR, eqref, ucase);
 
 
   // open output file streams
-
-  ofstream p_u_ofs(nom + "_pos_usquared.dat");
+  provisoire = nom + "_pos_usquared.dat";
+  ofstream p_u_ofs(provisoire);
   p_u_ofs.precision(15);
 
-  ofstream w_ofs(nom+"_wave.dat");
+  provisoire = nom + "_wave.dat";
+  ofstream w_ofs(provisoire);
   w_ofs.precision(15);
 
-  ofstream energy_ofs (nom+"_energy.dat");
+  provisoire = nom + "_energy.dat";
+  ofstream energy_ofs (provisoire);
   energy_ofs.precision(15);
 
-  ofstream maxenergy_ofs (nom+"_maxenergy.dat");
+  provisoire = nom + "_maxenergy.dat";
+  ofstream maxenergy_ofs (provisoire);
   maxenergy_ofs.precision(15);
 
 
@@ -48,19 +51,19 @@ int main()
   dx=(xR - xL) / Ninter;
 
   contexte_vitesse(ucase, xL, xR, dx, Npos, u2_max, u2);
-  contexte_temporelle(dt, tfinal);
+  contexte_temporelle(dt, tfinal, dx, u2_max);
 
   fpast = new vector<double>(Npos);
   fnow = new vector<double>(Npos);
   fnext = new vector<double>(Npos);
   coeff = new vector<double>(Npos);
-  u = new vector<double>(Npos);
+  u_1 = new vector<double>(Npos);
   u_2 = new vector<double>(Npos);
   beta = new vector<double>(Npos);
   
   // coeff is beta^2
   for(int ip = 0; ip < Npos; ++ip)
-    coeff->[ip] = u2(xL+ip*dx) * dt * dt / (dx * dx);
+    (*coeff)[ip] = u2(xL+ip*dx) * dt * dt / (dx * dx);
   
   contexte_bord("left", left_bc, leftboundaryvalue, A, omega);
   contexte_bord("right", right_bc, rightboundaryvalue, A, omega);
@@ -71,8 +74,8 @@ int main()
   for(int ip = 0; ip < Npos; ++ip)
   {
       (*u_2)[ip] = u2(xL + dx * ip);
-      (*u)[ip] = sqrt((*u_2[ip]));
-      (*beta)[ip] = (*u)[ip]*dt/dx;
+      (*u_1)[ip] = sqrt(((*u_2)[ip]));
+      (*beta)[ip] = (*u_1)[ip]*dt/dx;
   }
 
 
@@ -139,7 +142,7 @@ int main()
                 #pragma omp parallel for simd
                 for(int ip = 1; ip < (Npos - 1); ++ip)
                 {
-                    (*fnext)[ip] = 0.5*(*beta)[ip]*((*u)[ip+1]-(*u)[ip-1])*((*fnow)[ip+1]-(*fnow)[ip-1])*dt/dx + (*beta)[ip]*(*beta)[ip]*((*fnow)[ip+1]-2*(*fnow)[ip]+(*fnow)[ip-1]) + 2*(*fnow)[ip] - (*fpast)[ip];
+                    (*fnext)[ip] = 0.5*(*beta)[ip]*((*u_1)[ip+1]-(*u_1)[ip-1])*((*fnow)[ip+1]-(*fnow)[ip-1])*dt/dx + (*beta)[ip]*(*beta)[ip]*((*fnow)[ip+1]-2*(*fnow)[ip]+(*fnow)[ip-1]) + 2*(*fnow)[ip] - (*fpast)[ip];
                 }
             }
 
@@ -181,7 +184,7 @@ int main()
   delete fnow;
   delete fnext;
   delete coeff;
-  delete u;
+  delete u_1;
   delete u_2;
   delete beta;
   

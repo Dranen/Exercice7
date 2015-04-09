@@ -6,7 +6,7 @@
 #include <cmath>
 #include <vector>
 
-typedef enum {fixed,free,excited,outgoing} boundary_condition;
+typedef enum {fixed,libre,excited,outgoing} boundary_condition;
 
 
 // function object for the position dependent velocity
@@ -74,7 +74,7 @@ double get_energy(const std::vector<double>& f, const double dx)
 
   double erg = 0.;
   for(int ip = 0; ip < (npos - 1); ++ip)
-    erg += f[i]*f[i] + f[i+1]*f[i+1];
+    erg += f[ip]*f[ip] + f[ip+1]*f[ip+1];
 
   return erg * dx;
 }
@@ -88,7 +88,7 @@ inline void calcul_condition_bord(bool gauche, boundary_condition const& bc, dou
         (*fnext)[i] = boundaryvalue;
         break;
 
-      case free:
+      case libre:
         if(gauche)
         {
             (*fnext)[i] = (*fnext)[i+1];
@@ -100,7 +100,7 @@ inline void calcul_condition_bord(bool gauche, boundary_condition const& bc, dou
         break;
 
       case excited:
-        fnext->[i] = A * sin(omega * t);
+        (*fnext)[i] = A * sin(omega * t);
         break;
 
       case outgoing:
