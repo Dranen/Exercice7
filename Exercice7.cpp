@@ -128,6 +128,7 @@ int main()
             //cout << " time evolution: " << t << endl;
             if(eqref == 1)
             {
+                #pragma omp parallel for simd
                 for(int ip = 1; ip < (Npos - 1); ++ip)
                 {
                     //TODO: mettre le code du shema numerique des equations (1).
@@ -135,6 +136,7 @@ int main()
             }
             else if(eqref == 2)
             {
+                #pragma omp parallel for simd
                 for(int ip = 1; ip < (Npos - 1); ++ip)
                 {
                     (*fnext)[i] = 0.5*(*beta)[i]*((*u)[i+1]-(*u)[i-1])*((*fnow)[i+1]-(*fnow)[i-1])*dt/dx + (*beta)[i]*(*beta)[i]*((*fnow)[i+1]-2*(*fnow)[i]+(*fnow)[i-1]) + 2*(*fnow)[i] - (*fpast)[i];
