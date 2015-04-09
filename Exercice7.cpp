@@ -23,8 +23,7 @@ int main()
   boundary_condition left_bc, right_bc;
   std::string nom;
 
-  //initialisation des différentes valeurs
-
+  //initialisation de parametres généraux
   contexte_general(nom, Ninter, xL, XR, eqref, ucase);
 
 
@@ -43,6 +42,7 @@ int main()
   maxenergy_ofs.precision(15);
 
 
+  //initialisation des différentes valeurs
 
   Npos = Ninter+1;
   dx=(xR - xL) / Ninter;
