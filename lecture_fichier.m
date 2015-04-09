@@ -18,6 +18,7 @@ a = load([nom '_maxenergy.dat']);
 maxenergy = a(:,2);
 omega = a(:,1);
 
+
 donnee = {x, u, t, f, energy, omega, maxenergy};
 end
 
