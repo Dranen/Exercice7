@@ -4,6 +4,7 @@
 #include <cmath> 
 #include <cassert> 
 #include <cstdlib> 
+#include <chrono>
 
 #include "Exercice7_io.h"
 #include "Exercice7_calcul.h"
@@ -126,6 +127,8 @@ int main()
       
 
       // time loop --------------------------------
+      chrono::system_clock::time_point end;
+      chrono::system_clock::time_point start = std::chrono::system_clock::now();
       do
       {
             //cout << " time evolution: " << t << endl;
@@ -173,7 +176,9 @@ int main()
               }
 
       } while(t < tfinal); // end of time loop -----------------------------
-      
+      end = std::chrono::system_clock::now();
+      cerr << endl  << setprecision(16) << chrono::duration_cast< chrono::seconds >(end - start).count() << " s" << endl;
+
       maxenergy_ofs << omega << " " << maxenergy << endl;
       
       omega += delta_omega;
