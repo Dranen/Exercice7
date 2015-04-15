@@ -16,5 +16,6 @@ Graphique_xtf(x,t,f);
 Graphique_xtf3D(x,t,f);
 Graphique_omega(omega, maxenergy);
 Graphique_E(t,energy);
+Graph_ftx(x, f);
 
 end
