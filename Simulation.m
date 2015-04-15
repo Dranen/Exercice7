@@ -8,7 +8,7 @@ input_file = [name '_inp.dat'];
 fid = fopen( [ workingfolder, input_file], 'wt' ); %create or overwrite (empty file, text mode)
 
 %fill the file
-fprintf( fid, nom );
+fprintf( fid, name );
 fprintf( fid, '\n');
 fprintf( fid, num2str(Ninter));
 fprintf( fid, '\n');

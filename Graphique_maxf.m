@@ -1,7 +1,7 @@
 function Graphique_maxf(x,f)
-
-maxf = zeros(max(size(f)));
-for i = 1:max(size(f))
+s = size(f);
+maxf = zeros(s(2));
+for i = 1:s(2)
 maxf(i) = max(f(:,i));
 end
 
