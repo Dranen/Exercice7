@@ -138,7 +138,7 @@ int main()
                 #pragma omp parallel for simd
                 for(int ip = 1; ip < (Npos - 1); ++ip)
                 {
-                    //TODO: mettre le code du shema numerique des equations (1).
+                    (*fnext)[ip]=2;
                 }
             }
             else
