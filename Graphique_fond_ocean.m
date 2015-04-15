@@ -1,10 +1,21 @@
-function Graphique_fond_ocean(xocean, xR)
+function Graphique_fond_ocean(xocean, xR, hocean, hplage)
 
 x = [0:1000000];
+h = zeros(size(x));
 
 for i = x
-    hocean = sin(pi() * (x(i) - xocean) / (2.0 * (xR - xocean)));
+    if(x(i+1) > xocean)
+        h(i+1) = hocean + (hplage-hocean)*((sin(pi() * (x(i+1) - xocean) / (2.0 * (xR - xocean))))^2);
+    else
+        h(i+1) = hocean;
+    end
 end
+h =-h;
+figure
+grid on;
+plot(x, h)
+xlabel('x [m]')
+ylabel('h [m]')
 
 end
 
