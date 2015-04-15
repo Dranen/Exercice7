@@ -14,7 +14,8 @@ class u_squared {
 public:
 
   // standard constructor
-  u_squared()
+  u_squared() :
+  u2(1), ucase(0)
   {}
 
   // constant u: set all private variables to zero but u2_ and uconst_
