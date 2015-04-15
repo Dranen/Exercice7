@@ -128,14 +128,15 @@ int main()
       
 
       // time loop --------------------------------
-      chrono::system_clock::time_point end;
-      chrono::system_clock::time_point start = std::chrono::system_clock::now();
+      chrono::high_resolution_clock::time_point end;
+      chrono::high_resolution_clock::time_point start = std::chrono::high_resolution_clock::now();
       do
       {
             //cout << " time evolution: " << t << endl;
             if(eqref == 1)
             {
-                #pragma omp parallel for simd if(Npos > 1000)
+                #pragma omp for simd
+//                #pragma omp parallel for if(Npos > 1000)
                 for(int ip = 1; ip < (Npos - 1); ++ip)
                 {
                     (*fnext)[ip]=-(*fpast)[ip]+2*(1-(*beta)[ip]*(*beta)[ip])*(*fnow)[ip]+(*beta)[ip]*(*beta)[ip]*((*fnow)[ip-1]+(*fnow)[ip+1]);
@@ -143,7 +144,8 @@ int main()
             }
             else
             {
-                #pragma omp parallel for simd if(Npos > 1000)
+                #pragma omp for simd
+//                #pragma omp parallel for if(Npos > 1000)
                 for(int ip = 1; ip < (Npos - 1); ++ip)
                 {
                     (*fnext)[ip] = 0.5*(*beta)[ip]*((*u_1)[ip+1]-(*u_1)[ip-1])*((*fnow)[ip+1]-(*fnow)[ip-1])*dt/dx + (*beta)[ip]*(*beta)[ip]*((*fnow)[ip+1]-2*(*fnow)[ip]+(*fnow)[ip-1]) + 2*(*fnow)[ip] - (*fpast)[ip];
@@ -177,8 +179,8 @@ int main()
               }
 
       } while(t < tfinal); // end of time loop -----------------------------
-      end = std::chrono::system_clock::now();
-      cerr << endl  << setprecision(16) << chrono::duration_cast< chrono::seconds >(end - start).count() << " s" << endl;
+      end = std::chrono::high_resolution_clock::now();
+      cerr << endl << setprecision(std::numeric_limits<double>::digits10 + 1) << chrono::duration_cast<chrono::milliseconds>(end - start).count() << " ms" << endl;
 
       maxenergy_ofs << omega << " " << maxenergy << endl;
       
