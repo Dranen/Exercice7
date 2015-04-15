@@ -5,6 +5,7 @@
 #include <cassert> 
 #include <cstdlib> 
 #include <chrono>
+#include <iomanip>
 
 #include "Exercice7_io.h"
 #include "Exercice7_calcul.h"
