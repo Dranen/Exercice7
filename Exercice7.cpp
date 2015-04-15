@@ -141,7 +141,7 @@ int main()
                     //TODO: mettre le code du shema numerique des equations (1).
                 }
             }
-            else if(eqref == 2)
+            else
             {
                 #pragma omp parallel for simd
                 for(int ip = 1; ip < (Npos - 1); ++ip)
