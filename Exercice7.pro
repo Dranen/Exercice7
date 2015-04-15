@@ -9,6 +9,8 @@ QMAKE_LFLAGS +=  -fopenmp
 QMAKE_CXXFLAGS += -fopenmp-simd
 QMAKE_CXXFLAGS += -Wopenmp-simd
 
+QMAKE_CXXFLAGS_DEBUG += -Wall -Wextra
+
 QMAKE_CXXFLAGS_RELEASE += -O3
 QMAKE_CXXFLAGS_RELEASE += -march=ivybridge
 

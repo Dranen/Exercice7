@@ -92,11 +92,11 @@ inline void calcul_condition_bord(bool gauche, boundary_condition const& bc, dou
       case libre:
         if(gauche)
         {
-            (*fnext)[i] = (*fnext)[i+1];
+            (*fnext)[i] = (*fnow)[i+1];
         }
         else
         {
-            (*fnext)[i] = (*fnext)[i-1];
+            (*fnext)[i] = (*fnow)[i-1];
         }
         break;
 
