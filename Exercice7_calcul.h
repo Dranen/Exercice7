@@ -44,13 +44,13 @@ public:
 
     case 2:
 
-    if (x <= xocean)
-          u2 = g * hocean;
-    else
-      {
-            double tmp = sin(M_PI * (x - xocean) / (2.0 * (xR - xocean)));
-            u2 = g * (hocean + (hplage - hocean) * tmp*tmp );
-      }
+        if (x <= xocean)
+              u2 = g * hocean;
+        else
+        {
+                double tmp = sin(M_PI * (x - xocean) / (2.0 * (xR - xocean)));
+                u2 = g * (hocean + (hplage - hocean) * tmp*tmp );
+        }
      }
 
     double result = u2;
