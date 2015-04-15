@@ -1,4 +1,4 @@
-function Analyse_donne(nom)
+function donnee = Analyse_donne(nom)
 
 donnee = lecture_fichier(nom);
 
@@ -16,5 +16,6 @@ Graphique_xtf(x,t,f);
 Graphique_xtf3D(x,t,f);
 Graphique_omega(omega, maxenergy);
 Graphique_xtE(x,t,energy);
+Graphique_xtE3D(x,t,energy);
 
 end
