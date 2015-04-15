@@ -138,7 +138,7 @@ int main()
                 #pragma omp parallel for simd
                 for(int ip = 1; ip < (Npos - 1); ++ip)
                 {
-                    (*fnext)[ip]=2;
+                    (*fnext)[ip]=-(*fpast)[ip]+2*(1-(*beta)[ip]*(*beta)[ip])*(*fnow)[ip]+(*beta)[ip]*(*beta)[ip]*((*fnow)[ip-1]+(*fnow)[ip+1]);
                 }
             }
             else
