@@ -134,11 +134,8 @@ void contexte_bord(std::string bord, boundary_condition& bc, double& boundaryval
     }
 }
 
-void contexte_scan_frequence(int& nscan, double& omega, double& omega_start, double& omega_stop, double& delta_omega)
+void contexte_scan_frequence(int& nscan, double& omega_stop)
 {
-    omega_start = omega;
-    omega_stop = omega;
-
     std::cerr << "number of frequencies to scan? " << std::flush;
     std::cin >> nscan;
 
@@ -146,11 +143,11 @@ void contexte_scan_frequence(int& nscan, double& omega, double& omega_start, dou
       {
         std::cerr << "scan from omega-start=omega to omega-end=? " << std::flush;
         std::cin >> omega_stop;
-        omega_start = omega;
-        delta_omega = (omega_stop - omega_start)/nscan;
       }
-
-    omega = omega_start;
+    else
+    {
+        nscan = 1;
+    }
 }
 
 #endif // EXERCICE7_IO_H
