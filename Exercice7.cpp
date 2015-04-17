@@ -103,7 +103,7 @@ int main()
 
 
   // frequency scan ------------------------------------------
-  #pragma omp parallel for default(shared) private(energy, maxenergy, temp, fpast, fnow, fnext, t) schedule(dynamic)
+  #pragma omp parallel for default(shared) private(energy, maxenergy, temp, fpast, fnow, fnext, t) schedule(dynamic) if(nscan > 1)
   for(int jscan = 0; jscan < nscan; ++jscan) 
   {
       fpast = new vector<double>(Npos);
