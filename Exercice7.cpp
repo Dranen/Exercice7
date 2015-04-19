@@ -19,7 +19,7 @@ int main()
 { 
   int eqref, ucase, Ninter_start, Ninter_stop, nscan;
   double xL, xR, u2_max=0, tfinal = 0, leftboundaryvalue = 0, rightboundaryvalue = 0;
-  double A=1., omega_start=0., omega_stop, CFL_start, CFL_stop, dx_stop;
+  double A=1., omega_start=0., omega_stop, CFL_start, CFL_stop;
   u_squared u2;
   std::vector<double>  *coeff = NULL, *u_1 = NULL, *beta = NULL;
   boundary_condition left_bc, right_bc;
@@ -27,7 +27,7 @@ int main()
   mode choix;
 
   //initialisation de parametres généraux
-  contexte_general(nom, Ninter, xL, xR, eqref, ucase);
+  contexte_general(nom, Ninter_start, xL, xR, eqref, ucase);
 
 
   // open output file streams
@@ -56,7 +56,7 @@ int main()
   contexte_bord("left", left_bc, leftboundaryvalue, A, omega_start);
   contexte_bord("right", right_bc, rightboundaryvalue, A, omega_start);
 
-  contexte_mode(nscan, omega_stop, dx_stop, CFL_stop, choix);
+  contexte_mode(nscan, omega_stop, Ninter_stop, CFL_stop, choix);
 
    if(choix != convergence_Ninter)
    {
@@ -161,39 +161,38 @@ int main()
         int Npos = Ninter_start+1;
         double dx = (xR - xL) / Ninter_start;
 
-        coeff = new vector<double>(Npos);
-        u_1 = new vector<double>(Npos);
-        beta = new vector<double>(Npos);
-
-        //calcul des vitesse en fonctions des positions et calcul du parametre beta
-        for(int ip = 0; ip < Npos; ++ip)
-        {
-            (*u_1)[ip] = sqrt((u2(xL + dx * ip)));
-            (*beta)[ip] = (*u_1)[ip]*dt/dx;
-            // coeff is beta^2
-            (*coeff)[ip] = (*beta)[ip] * (*beta)[ip];
-        }
-
         vector<double> dt(nscan);
         for(int jscan = 0; jscan < nscan; ++jscan)
         {
             dt[jscan] = (CFL_start + static_cast<double>(jscan)*((CFL_stop-CFL_start)/static_cast<double>(nscan-1))) * dx / sqrt(u2_max);
         }
 
-        #pragma omp parallel for default(shared) schedule(dynamic)
+        #pragma omp parallel for default(shared) private(coeff, u_1, beta) schedule(dynamic)
         for(int jscan = 0; jscan < nscan; ++jscan)
         {
+            coeff = new vector<double>(Npos);
+            u_1 = new vector<double>(Npos);
+            beta = new vector<double>(Npos);
+
+            //calcul des vitesse en fonctions des positions et calcul du parametre beta
+            for(int ip = 0; ip < Npos; ++ip)
+            {
+                (*u_1)[ip] = sqrt((u2(xL + dx * ip)));
+                (*beta)[ip] = (*u_1)[ip]*dt[jscan]/dx;
+                // coeff is beta^2
+                (*coeff)[ip] = (*beta)[ip] * (*beta)[ip];
+            }
+
             #pragma omp critical
             {
                 cout << "dt=" << dt[jscan] << endl;
             }
             simulation(u_1,beta,coeff,dx,dt[jscan],eqref,ucase,Npos,tfinal,omega_start,A,left_bc,leftboundaryvalue,right_bc,rightboundaryvalue,choix,w_ofs,energy_ofs,maxenergy_ofs,false);
+
+            delete coeff;
+            delete u_1;
+            delete beta;
         }
-
-        delete coeff;
-        delete u_1;
-        delete beta;
-
     }
     else if(choix == convergence_Ninter)
     {
@@ -210,15 +209,15 @@ int main()
         #pragma omp parallel for default(shared) private(coeff, u_1, beta) schedule(dynamic)
         for(int jscan = 0; jscan < nscan; ++jscan)
         {
-            coeff = new vector<double>(Npos);
-            u_1 = new vector<double>(Npos);
-            beta = new vector<double>(Npos);
+            coeff = new vector<double>(Npos[jscan]);
+            u_1 = new vector<double>(Npos[jscan]);
+            beta = new vector<double>(Npos[jscan]);
 
             //calcul des vitesse en fonctions des positions et calcul du parametre beta
-            for(int ip = 0; ip < Npos; ++ip)
+            for(int ip = 0; ip < Npos[jscan]; ++ip)
             {
-                (*u_1)[ip] = sqrt((u2(xL + dx * ip)));
-                (*beta)[ip] = (*u_1)[ip]*dt/dx;
+                (*u_1)[ip] = sqrt((u2(xL + dx[jscan] * ip)));
+                (*beta)[ip] = (*u_1)[ip]*dt[jscan]/dx[jscan];
                 // coeff is beta^2
                 (*coeff)[ip] = (*beta)[ip] * (*beta)[ip];
             }

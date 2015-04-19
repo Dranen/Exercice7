@@ -8,6 +8,11 @@
 #include <chrono>
 #include <fstream>
 
+#include "Exercice7_io.h"
+
+template <class T>
+std::ostream& operator << (std::ostream& o, const std::vector<T>& v);
+
 typedef enum {fixed,libre,excited,outgoing} boundary_condition;
 typedef enum {unique, frequence, convergence_CFL, convergence_Ninter} mode;
 
@@ -153,15 +158,12 @@ void simulation(std::vector<double> *u_1, std::vector<double> *beta, std::vector
     double energy = get_energy(*fnow,dx);
     double maxenergy = energy;
 
-    #pragma omp critical
-    {
+
         if(sortie == unique)
         {
           w_ofs << t << " " << *fnow << std::endl;
           energy_ofs << t << " " << energy << std::endl;
         }
-    }
-
 
     // time loop --------------------------------
     std::chrono::high_resolution_clock::time_point end;
