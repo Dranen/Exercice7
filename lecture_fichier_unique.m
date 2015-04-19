@@ -14,11 +14,6 @@ a = load([nom '_energy.dat']);
 energy = a(:,2:end);
 
 
-a = load([nom '_maxenergy.dat']);
-maxenergy = a(:,2);
-omega = a(:,1);
-
-
-donnee = {x, u, t, f, energy, omega, maxenergy};
+donnee = {x, u, t, f, energy};
 end
 
