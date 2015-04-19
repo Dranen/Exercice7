@@ -17,5 +17,8 @@ plot(x, h)
 xlabel('x [m]')
 ylabel('h [m]')
 
+saveas(gcf, [nom, '_fond_ocean.fig'])
+saveas(gcf, [nom, '_fond_ocean.eps'], 'epsc')
+
 end
 

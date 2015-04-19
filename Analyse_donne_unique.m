@@ -8,11 +8,11 @@ t = donnee{3};
 f = donnee{4};
 energy = donnee{5};
 
-Graphique_u(x,u);
-Graphique_maxf(x,f);
-Graphique_xtf(x,t,f);
-Graphique_xtf3D(x,t,f);
-Graphique_E(t,energy);
-Graph_ftx(x, f);
+Graphique_u(x,u, nom);
+Graphique_maxf(x,f, nom);
+Graphique_xtf(x,t,f, nom);
+Graphique_xtf3D(x,t,f, nom);
+Graphique_E(t,energy, nom);
+Graph_ftx(x, f, nom);
 
 end
