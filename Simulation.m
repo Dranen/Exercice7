@@ -1,4 +1,4 @@
-function Simulation(name, Ninter, xL, xR, equation, question, u_l, u_r, hocean, xocean, hplage, CFL, tfinal, bord_l, bord_r, bc_l, bc_r, A, omega, nscan, omega_stop)
+function Simulation(name, Ninter, xL, xR, equation, question, u_l, u_r, hocean, xocean, hplage, CFL, tfinal, bord_l, bord_r, bc_l, bc_r, A, omega, mode, nscan, omega_stop, CFL_stop, Ninter_stop)
 
 workingfolder = './';
 binfilename = 'Exercice7';
@@ -71,11 +71,31 @@ else if bc_r == 2
     end
 end
 
-fprintf( fid, num2str(nscan));
+fprintf( fid, num2str(mode));
 fprintf( fid, '\n');
-if nscan > 1
-    fprintf( fid, num2str(omega_stop));
+if mode == 1    
+    fprintf( fid, num2str(nscan));
     fprintf( fid, '\n');
+    if nscan > 1
+        fprintf( fid, num2str(omega_stop));
+        fprintf( fid, '\n');
+    end
+else if mode == 2
+    fprintf( fid, num2str(nscan));
+    fprintf( fid, '\n');
+    if nscan > 1
+        fprintf( fid, num2str(CFL_stop));
+        fprintf( fid, '\n');
+    end
+else if mode == 3
+    fprintf( fid, num2str(nscan));
+    fprintf( fid, '\n');
+    if nscan > 1
+        fprintf( fid, num2str(Ninter_stop));
+        fprintf( fid, '\n');
+    end
+    end
+    end
 end
 
 

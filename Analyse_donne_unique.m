@@ -1,4 +1,4 @@
-function donnee = Analyse_donne(nom)
+function donnee = Analyse_donne_unique(nom)
 
 donnee = lecture_fichier(nom);
 

@@ -1,4 +1,4 @@
-function donnee = lecture_fichier(nom)
+function donnee = lecture_fichier_unique(nom)
 
 a = load([nom '_pos_usquared.dat']);
 x = a(:,1);
