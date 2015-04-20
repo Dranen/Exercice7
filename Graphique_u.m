@@ -1,4 +1,4 @@
-function Graphique_u(x, u)
+function Graphique_u(x, u, nom)
 figure
 plot(x,u);
 grid on;

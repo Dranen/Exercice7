@@ -66,7 +66,7 @@ int main()
    {
        CFL_stop = CFL_start;
    }
-   if(choix != convergence_Ninter)
+   if(choix != frequence)
    {
        omega_stop = omega_start;
    }

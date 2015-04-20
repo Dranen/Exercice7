@@ -1,4 +1,4 @@
-function Graphique_fond_ocean(xocean, xR, hocean, hplage)
+function Graphique_fond_ocean(xocean, xR, hocean, hplage, nom)
 
 x = [0:1000000];
 h = zeros(size(x));

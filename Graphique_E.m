@@ -1,4 +1,4 @@
-function Graphique_E(t,E)
+function Graphique_E(t,E, nom)
 figure
 plot(t,E);
 grid on;

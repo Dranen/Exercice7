@@ -1,4 +1,4 @@
-function Graphique_omega(omega, maxenergy)
+function Graphique_omega(omega, maxenergy, nom)
 figure
 plot(omega,maxenergy);
 grid on;

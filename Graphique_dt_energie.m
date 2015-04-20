@@ -1,4 +1,4 @@
-function Graphique_dt_energie(dt,E)
+function Graphique_dt_energie(dt,E,nom)
 figure
 plot(dt,E);
 grid on;

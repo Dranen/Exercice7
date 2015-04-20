@@ -1,4 +1,4 @@
-function Graphique_xtf(x,t,f)
+function Graphique_xtf(x,t,f, nom)
 figure
 contourf(x,t,f, 'LineStyle', 'none');
 grid on;

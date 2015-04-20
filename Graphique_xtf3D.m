@@ -1,4 +1,4 @@
-function Graphique_xtf3D(x,t,f)
+function Graphique_xtf3D(x,t,f, nom)
 figure
 surf(x,t,f, 'LineStyle', 'none');
 grid on;

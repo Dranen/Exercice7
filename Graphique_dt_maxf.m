@@ -1,4 +1,4 @@
-function Graphique_dt_maxf(dt,f)
+function Graphique_dt_maxf(dt,f, nom)
 s = size(f);
 maxf = zeros(s(2));
 for i = 1:s(2)

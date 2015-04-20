@@ -1,4 +1,4 @@
-function Graphique_ft(x, f)
+function Graphique_ft(x, f, nom)
 s = [-abs(min(min(f))*1.2) abs(max(max(f))*1.2)];
 
 for i = 1:max(size(f))

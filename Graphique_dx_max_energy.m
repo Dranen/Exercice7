@@ -1,4 +1,4 @@
-function Graphique_dx_max_energy(dx, max)
+function Graphique_dx_max_energy(dx, max, nom)
 figure
 loglog(dx,max);
 grid on;
