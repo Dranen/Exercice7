@@ -13,6 +13,6 @@ Graphique_maxf(x,f, nom);
 Graphique_xtf(x,t,f, nom);
 Graphique_xtf3D(x,t,f, nom);
 Graphique_E(t,energy, nom);
-Graph_ftx(x, f, nom);
+Graphique_ft(x, f);
 
 end

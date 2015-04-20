@@ -3,13 +3,14 @@ CONFIG += console
 CONFIG -= app_bundle
 CONFIG -= qt
 
-QMAKE_CXX = g++-4.9
-
 QMAKE_CXXFLAGS += -std=c++11
 QMAKE_CXXFLAGS += -fopenmp
 QMAKE_LFLAGS +=  -fopenmp
-QMAKE_CXXFLAGS += -fopenmp-simd
-QMAKE_CXXFLAGS += -Wopenmp-simd
+
+!macx {
+    QMAKE_CXXFLAGS += -fopenmp-simd
+    QMAKE_CXXFLAGS += -Wopenmp-simd
+}
 
 QMAKE_CXXFLAGS_DEBUG += -Wall -Wextra
 
