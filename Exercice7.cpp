@@ -108,7 +108,14 @@ int main()
             (*coeff)[ip] = (*beta)[ip] * (*beta)[ip];
         }
 
-        simulation(u_1,beta,coeff,dx,dt,eqref,ucase,Npos,tfinal,omega_start,A,left_bc,leftboundaryvalue,right_bc,rightboundaryvalue,choix,w_ofs,energy_ofs,maxenergy_ofs,false);
+        if(Npos > 1000)
+        {
+            simulation_par(u_1,beta,coeff,dx,dt,eqref,ucase,Npos,tfinal,omega_start,A,left_bc,leftboundaryvalue,right_bc,rightboundaryvalue,choix,w_ofs,energy_ofs,maxenergy_ofs);
+        }
+        else
+        {
+            simulation(u_1,beta,coeff,dx,dt,eqref,ucase,Npos,tfinal,omega_start,A,left_bc,leftboundaryvalue,right_bc,rightboundaryvalue,choix,w_ofs,energy_ofs,maxenergy_ofs);
+        }
 
         delete coeff;
         delete u_1;
@@ -149,7 +156,7 @@ int main()
             {
                 cout << "Scan frequency: " << jscan << endl;
             }
-            simulation(u_1,beta,coeff,dx,dt,eqref,ucase,Npos,tfinal,omega[jscan],A,left_bc,leftboundaryvalue,right_bc,rightboundaryvalue,choix,w_ofs,energy_ofs,maxenergy_ofs,false);
+            simulation(u_1,beta,coeff,dx,dt,eqref,ucase,Npos,tfinal,omega[jscan],A,left_bc,leftboundaryvalue,right_bc,rightboundaryvalue,choix,w_ofs,energy_ofs,maxenergy_ofs);
         }
 
         delete coeff;
@@ -187,7 +194,7 @@ int main()
             {
                 cout << "dt=" << dt[jscan] << endl;
             }
-            simulation(u_1,beta,coeff,dx,dt[jscan],eqref,ucase,Npos,tfinal,omega_start,A,left_bc,leftboundaryvalue,right_bc,rightboundaryvalue,choix,w_ofs,energy_ofs,maxenergy_ofs,false);
+            simulation(u_1,beta,coeff,dx,dt[jscan],eqref,ucase,Npos,tfinal,omega_start,A,left_bc,leftboundaryvalue,right_bc,rightboundaryvalue,choix,w_ofs,energy_ofs,maxenergy_ofs);
 
             delete coeff;
             delete u_1;
@@ -227,7 +234,7 @@ int main()
                 cout << "dt=" << dt[jscan] << endl;
                 cout << "dx=" << dx[jscan] << endl;
             }
-            simulation(u_1,beta,coeff,dx[jscan],dt[jscan],eqref,ucase,Npos[jscan],tfinal,omega_start,A,left_bc,leftboundaryvalue,right_bc,rightboundaryvalue,choix,w_ofs,energy_ofs,maxenergy_ofs,false);
+            simulation(u_1,beta,coeff,dx[jscan],dt[jscan],eqref,ucase,Npos[jscan],tfinal,omega_start,A,left_bc,leftboundaryvalue,right_bc,rightboundaryvalue,choix,w_ofs,energy_ofs,maxenergy_ofs);
 
             delete coeff;
             delete u_1;
