@@ -14,7 +14,7 @@ template <class T>
 std::ostream& operator << (std::ostream& o, const std::vector<T>& v);
 
 typedef enum {fixed,libre,excited,outgoing} boundary_condition;
-typedef enum {unique, frequence, convergence_CFL, convergence_Ninter} mode;
+typedef enum {Unique, frequence, convergence_CFL, convergence_Ninter} mode;
 
 
 // function object for the position dependent velocity
@@ -159,7 +159,7 @@ void simulation(std::vector<double> *u_1, std::vector<double> *beta, std::vector
     double maxenergy = energy;
 
 
-        if(sortie == unique)
+        if(sortie == Unique)
         {
           w_ofs << t << " " << *fnow << std::endl;
           energy_ofs << t << " " << energy << std::endl;
@@ -216,7 +216,7 @@ void simulation(std::vector<double> *u_1, std::vector<double> *beta, std::vector
           if(energy > maxenergy)
             maxenergy = energy;
 
-          if(sortie == unique)
+          if(sortie == Unique)
           {
                 w_ofs << t << " " << *fnow << std::endl;
                 energy_ofs << t << " " << energy << std::endl;
@@ -285,7 +285,7 @@ void simulation_par(std::vector<double> *u_1, std::vector<double> *beta, std::ve
     double maxenergy = energy;
 
 
-        if(sortie == unique)
+        if(sortie == Unique)
         {
           w_ofs << t << " " << *fnow << std::endl;
           energy_ofs << t << " " << energy << std::endl;
@@ -342,7 +342,7 @@ void simulation_par(std::vector<double> *u_1, std::vector<double> *beta, std::ve
           if(energy > maxenergy)
             maxenergy = energy;
 
-          if(sortie == unique)
+          if(sortie == Unique)
           {
                 w_ofs << t << " " << *fnow << std::endl;
                 energy_ofs << t << " " << energy << std::endl;

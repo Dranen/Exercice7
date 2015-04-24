@@ -124,13 +124,13 @@ void contexte_bord(std::string bord, boundary_condition& bc, double& boundaryval
 void contexte_mode(int& nscan, double& omega_stop, int& Ninter_stop, double& CFL_stop, mode& choix)
 {
     int n;
-    std::cerr << std::endl << " mode (unique = 0, scan frequence = 1, convergence CFL = 2, convergence dx = 3)? " << std::flush;
+    std::cerr << std::endl << " mode (Unique = 0, scan frequence = 1, convergence CFL = 2, convergence dx = 3)? " << std::flush;
     std::cin >> n;
 
     switch(n)
     {
       case 0:
-        choix = unique;
+        choix = Unique;
         break;
 
       case 1:
@@ -163,7 +163,7 @@ void contexte_mode(int& nscan, double& omega_stop, int& Ninter_stop, double& CFL
         else
         {
             nscan = 1;
-            choix = unique;
+            choix = Unique;
         }
     }
     else if(choix == convergence_CFL)
@@ -179,7 +179,7 @@ void contexte_mode(int& nscan, double& omega_stop, int& Ninter_stop, double& CFL
         else
         {
             nscan = 1;
-            choix = unique;
+            choix = Unique;
         }
     }
     else if(choix == convergence_Ninter)
@@ -195,13 +195,13 @@ void contexte_mode(int& nscan, double& omega_stop, int& Ninter_stop, double& CFL
         else
         {
             nscan = 1;
-            choix = unique;
+            choix = Unique;
         }
     }
     else
     {
         nscan = 1;
-        choix = unique;
+        choix = Unique;
     }
 }
 

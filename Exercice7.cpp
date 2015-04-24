@@ -87,7 +87,7 @@ int main()
     cout << "u2_max="<<u2_max << endl;
     p_u_ofs.close();
   
-    if(choix == unique)
+    if(choix == Unique)
     {
         int Npos = Ninter_start+1;
         double dx =(xR - xL) / Ninter_start;
