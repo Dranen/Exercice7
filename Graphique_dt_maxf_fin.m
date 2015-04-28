@@ -1,6 +1,5 @@
 function Graphique_dt_maxf_fin(dt,f, nom)
 
-
 figure
 plot(dt,f);
 grid on;
