@@ -1,6 +1,6 @@
 function donnee = Analyse_donne_convergence(nom)
 
-donnee = lecture_fichier_unique(nom);
+donnee = lecture_fichier_convergence(nom);
 x =  donnee{1};
 u = donnee{2};
 dt = donnee{3};
