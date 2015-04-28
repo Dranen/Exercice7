@@ -12,6 +12,6 @@ A = 0.1;
 omega = 2*pi();
 bc_r = 1;
 
-Simulation(nom, Ninter, xL, xR, equation, question, u, u, 1, 1, 1, CFL, tfinal, 0, 0, bc_l, bc_r, A, omega, 0, 0, 0, 0, 0)
+Simulation(nom, Ninter, xL, xR, equation, question, u, u, 1, 1, 1, CFL, tfinal, 0, 0, bc_l, bc_r, A, omega, 0, 0, 0, 0, 0, 1)
 
 donnee = Analyse_donne_unique(nom);

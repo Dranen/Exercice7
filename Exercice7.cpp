@@ -174,7 +174,7 @@ int main()
             dt[jscan] = (CFL_start + static_cast<double>(jscan)*((CFL_stop-CFL_start)/static_cast<double>(nscan-1))) * dx / sqrt(u2_max);
         }
 
-        #pragma omp parallel for default(shared) private(coeff, u_1, beta) schedule(dynamic)
+        //#pragma omp parallel for default(shared) private(coeff, u_1, beta) schedule(dynamic)
         for(int jscan = 0; jscan < nscan; ++jscan)
         {
             coeff = new vector<double>(Npos);
@@ -213,7 +213,7 @@ int main()
             dt[jscan] =  CFL_start * dx[jscan] / sqrt(u2_max);
         }
 
-        #pragma omp parallel for default(shared) private(coeff, u_1, beta) schedule(dynamic)
+        //#pragma omp parallel for default(shared) private(coeff, u_1, beta) schedule(dynamic)
         for(int jscan = 0; jscan < nscan; ++jscan)
         {
             coeff = new vector<double>(Npos[jscan]);
@@ -233,12 +233,14 @@ int main()
             {
                 cout << "dt=" << dt[jscan] << endl;
                 cout << "dx=" << dx[jscan] << endl;
+                cout << "jscan=" << jscan << endl;
             }
             simulation(u_1,beta,coeff,dx[jscan],dt[jscan],eqref,ucase,Npos[jscan],tfinal,omega_start,A,left_bc,leftboundaryvalue,right_bc,rightboundaryvalue,choix,w_ofs,energy_ofs,maxenergy_ofs, ech_t);
 
             delete coeff;
             delete u_1;
             delete beta;
+
         }
     }
 

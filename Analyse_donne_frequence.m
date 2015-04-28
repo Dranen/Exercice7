@@ -7,7 +7,7 @@ u = donnee{2};
 omega = donnee{3};
 maxenergy = donnee{4};
 
-Graphique_u(x,u, nom);
+Graphique_u
 Graphique_omega(omega, maxenergy, nom);
 
 end
