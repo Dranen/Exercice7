@@ -189,12 +189,20 @@ void simulation(std::vector<double> *u_1, std::vector<double> *beta, std::vector
                   (*fnext)[ip] = 0.5*(*beta)[ip]*((*u_1)[ip+1]-(*u_1)[ip-1])*((*fnow)[ip+1]-(*fnow)[ip-1])*dt/dx + (*beta)[ip]*(*beta)[ip]*((*fnow)[ip+1]-2*(*fnow)[ip]+(*fnow)[ip-1]) + 2*(*fnow)[ip] - (*fpast)[ip];
               }
           }
-          else
+          else if(eqref == 3)
           {
                 #pragma omp for simd
                 for(int ip = 1; ip < (Npos - 1); ++ip)
                 {
                     (*fnext)[ip] = 0.25*((*coeff)[ip+1]-(*coeff)[ip-1])*((*fnow)[ip+1]-(*fnow)[ip-1])*dt/dx + (*coeff)[ip]*((*fnow)[ip+1]-2*(*fnow)[ip]+(*fnow)[ip-1]) + 2*(*fnow)[ip] - (*fpast)[ip];
+                }
+          }
+          else
+          {
+                #pragma omp for simd
+                for(int ip = 1; ip < (Npos - 1); ++ip)
+                {
+                    (*fnext)[ip] = (*coeff)[ip+1]*(*fnow)[ip+1] - 2*((*coeff)[ip] - 1)*(*fnow)[ip] + (*coeff)[ip-1]*(*fnow)[ip-1] - (*fpast)[ip];
                 }
           }
 

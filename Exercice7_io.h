@@ -34,7 +34,7 @@ void contexte_general(std::string& nom ,int& Ninter, double& xL, double& xR, int
     std::cin >> xL;
     std::cerr << std::endl << "xR? " << std::flush;
     std::cin >> xR;
-    std::cerr << std::endl << "Quelle equation (1) ou (2) ou (3)?"<< std::flush;
+    std::cerr << std::endl << "Quelle equation (1) ou (2) ou (3) ou (4)?"<< std::flush;
     std::cin >> eqref;
     std::cerr << std::endl << "quel question? 7.2 (taper 0) / 7.3 (taper 1) / 7.4 (taper 2):" << std::flush;
     std::cin >> ucase;
