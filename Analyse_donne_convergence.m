@@ -15,8 +15,8 @@ Graphique_dt_max_energy(dt, max, nom);
 Graphique_dx_max_energy(dx, max, nom);
 Graphique_dt_maxf(dt, maxf, nom);
 Graphique_dx_maxf(dx, maxf, nom);
-Graphique_dt_maxf(dt, maxf_fin, nom);
-Graphique_dx_maxf(dx, maxf_fin, nom);
+Graphique_dt_maxf_fin(dt, maxf_fin, nom);
+Graphique_dx_maxf_fin(dx, maxf_fin, nom);
 Graphique_dt_energie(dt, energy, nom);
 Graphique_dx_energie(dx, energy, nom);
 
