@@ -16,7 +16,7 @@ bc_r = 3;
 
 Simulation([nom, '_dx'], Ninter, xL, xR, equation, question, 1, 1, hocean, xocean, hplage, CFL, tfinal, 0, 0, bc_l, bc_r, 0, 0, 3, nscan, 0, 0, Ninter_stop, 1)
 
-Ninter = 100000;
+Ninter = 10000;
 CFL = 0.01;
 CFL_stop = 1.1;
 
