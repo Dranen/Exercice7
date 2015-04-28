@@ -10,7 +10,7 @@ energy = donnee{6};
 max = donnee{7};
 maxf = donnee{8};
 
-Graphique_u(x,u, nom);
+Graphique_u;
 Graphique_dt_max_energy(dt, max, nom);
 Graphique_dx_max_energy(dx, max, nom);
 Graphique_dt_maxf(dt, maxf, nom);
