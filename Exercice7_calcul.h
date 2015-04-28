@@ -75,6 +75,18 @@ private:
   int ucase;
 };
 
+double max(std::vector<double> const& A)
+{
+    double b = 0;
+    for(int i = 0; i < A.size(); i++)
+    {
+        if(A[i] > b)
+        {
+            b = A[i];
+        }
+    }
+    return b;
+}
 
 // calculate the energy of the wave
 double get_energy(const std::vector<double>& f, const double dx)
@@ -136,6 +148,7 @@ void simulation(std::vector<double> *u_1, std::vector<double> *beta, std::vector
     std::vector<double> *fnext = new std::vector<double>(Npos);
     std::vector<double> *temp = NULL;
     int count_t = 0;
+    double maxf = 0, maxff = 0;
 
 
      // initialize the first two time slices of f
@@ -235,6 +248,10 @@ void simulation(std::vector<double> *u_1, std::vector<double> *beta, std::vector
                    count_t = 0;
               }
           }
+          if(sortie == convergence_CFL || sortie == convergence_Ninter)
+          {
+                maxf = std::max(maxf, max(*fnow));
+          }
 
     } while(t < tfinal); // end of time loop -----------------------------
     end = std::chrono::high_resolution_clock::now();
@@ -259,7 +276,8 @@ void simulation(std::vector<double> *u_1, std::vector<double> *beta, std::vector
     {
           if(sortie == convergence_CFL || sortie == convergence_Ninter)
           {
-            w_ofs << dt << " " << dx << " " << *fnow << std::endl;
+            maxff = max(*fnow);
+            w_ofs << dt << " " << dx << " " << maxf << " " << maxff << std::endl;
             energy_ofs << dt << " " << dx << " " << energy << std::endl;
           }
     }
@@ -298,6 +316,7 @@ void simulation_par(std::vector<double> *u_1, std::vector<double> *beta, std::ve
     double t = 0;
     double energy = get_energy(*fnow,dx);
     double maxenergy = energy;
+    double maxf = 0, maxff = 0;
 
 
         if(sortie == Unique)
@@ -366,11 +385,16 @@ void simulation_par(std::vector<double> *u_1, std::vector<double> *beta, std::ve
           if(energy > maxenergy)
             maxenergy = energy;
 
-          if(count_t >= ech_t)
+          if(sortie == Unique && count_t >= ech_t)
           {
                w_ofs << t << " " << *fnow << std::endl;
                energy_ofs << t << " " << energy << std::endl;
                count_t = 0;
+          }
+
+          if(sortie == convergence_CFL || sortie == convergence_Ninter)
+          {
+                maxf = std::max(maxf, max(*fnow));
           }
 
     } while(t < tfinal); // end of time loop -----------------------------
@@ -394,11 +418,12 @@ void simulation_par(std::vector<double> *u_1, std::vector<double> *beta, std::ve
 
     #pragma omp critical
     {
-          if(sortie == convergence_CFL || sortie == convergence_Ninter)
-          {
-            w_ofs << dt << " " << dx << " " << *fnow << std::endl;
-            energy_ofs << dt << " " << dx << " " << energy << std::endl;
-          }
+        if(sortie == convergence_CFL || sortie == convergence_Ninter)
+        {
+          maxff = max(*fnow);
+          w_ofs << dt << " " << dx << " " << maxf << " " << maxff << std::endl;
+          energy_ofs << dt << " " << dx << " " << energy << std::endl;
+        }
     }
 
     delete fpast;

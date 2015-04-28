@@ -174,13 +174,13 @@ int main()
             dt[jscan] = (CFL_start + static_cast<double>(jscan)*((CFL_stop-CFL_start)/static_cast<double>(nscan-1))) * dx / sqrt(u2_max);
         }
 
+        coeff = new vector<double>(Npos);
+        u_1 = new vector<double>(Npos);
+        beta = new vector<double>(Npos);
+
         //#pragma omp parallel for default(shared) private(coeff, u_1, beta) schedule(dynamic)
         for(int jscan = 0; jscan < nscan; ++jscan)
         {
-            coeff = new vector<double>(Npos);
-            u_1 = new vector<double>(Npos);
-            beta = new vector<double>(Npos);
-
             //calcul des vitesse en fonctions des positions et calcul du parametre beta
             for(int ip = 0; ip < Npos; ++ip)
             {
@@ -196,10 +196,10 @@ int main()
             }
             simulation(u_1,beta,coeff,dx,dt[jscan],eqref,ucase,Npos,tfinal,omega_start,A,left_bc,leftboundaryvalue,right_bc,rightboundaryvalue,choix,w_ofs,energy_ofs,maxenergy_ofs, ech_t);
 
-            delete coeff;
-            delete u_1;
-            delete beta;
         }
+        delete coeff;
+        delete u_1;
+        delete beta;
     }
     else if(choix == convergence_Ninter)
     {
