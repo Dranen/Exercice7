@@ -121,7 +121,7 @@ void contexte_bord(std::string bord, boundary_condition& bc, double& boundaryval
     }
 }
 
-void contexte_mode(int& nscan, double& omega_stop, int& Ninter_stop, double& CFL_stop, mode& choix)
+void contexte_mode(int& nscan, double& omega_stop, int& Ninter_stop, double& CFL_stop, mode& choix, int& ech_t)
 {
     int n;
     std::cerr << std::endl << " mode (Unique = 0, scan frequence = 1, convergence CFL = 2, convergence dx = 3)? " << std::flush;
@@ -150,7 +150,12 @@ void contexte_mode(int& nscan, double& omega_stop, int& Ninter_stop, double& CFL
         throw "no valid mode";
     }
 
-    if(choix == frequence)
+    if (choix == Unique)
+    {
+        std::cerr << std::endl << "Echantillonage x ?" << std::flush;
+        std::cin >> ech_t;
+    }
+    else if(choix == frequence)
     {
         std::cerr << std::endl << "number of frequencies to scan? " << std::flush;
         std::cin >> nscan;

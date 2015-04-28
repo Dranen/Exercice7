@@ -115,7 +115,7 @@ inline void calcul_condition_bord(bool gauche, boundary_condition const& bc, dou
       case outgoing:
         if(gauche)
         {
-            (*fnext)[i] = (*fnow)[i]-beta*((*fnow)[i+1]-(*fnow)[i]);
+            (*fnext)[i] = (*fnow)[i]+beta*((*fnow)[i+1]-(*fnow)[i]);
         }
         else
         {
@@ -129,12 +129,13 @@ inline void calcul_condition_bord(bool gauche, boundary_condition const& bc, dou
       }
 }
 
-void simulation(std::vector<double> *u_1, std::vector<double> *beta, std::vector<double> *coeff, double const& dx, double const& dt, int const& eqref, int const& ucase, int const& Npos, double const& tfinal, double const& omega, double const& A, boundary_condition const& left_bc, double const& leftboundaryvalue, boundary_condition const& right_bc, double const& rightboundaryvalue, mode const& sortie, std::ofstream& w_ofs, std::ofstream& energy_ofs, std::ofstream& maxenergy_ofs)
+void simulation(std::vector<double> *u_1, std::vector<double> *beta, std::vector<double> *coeff, double const& dx, double const& dt, int const& eqref, int const& ucase, int const& Npos, double const& tfinal, double const& omega, double const& A, boundary_condition const& left_bc, double const& leftboundaryvalue, boundary_condition const& right_bc, double const& rightboundaryvalue, mode const& sortie, std::ofstream& w_ofs, std::ofstream& energy_ofs, std::ofstream& maxenergy_ofs, int ech_t)
 {
     std::vector<double> *fpast = new std::vector<double>(Npos);
     std::vector<double> *fnow = new std::vector<double>(Npos);
     std::vector<double> *fnext = new std::vector<double>(Npos);
     std::vector<double> *temp = NULL;
+    int count_t = 0;
 
 
      // initialize the first two time slices of f
@@ -170,6 +171,7 @@ void simulation(std::vector<double> *u_1, std::vector<double> *beta, std::vector
     std::chrono::high_resolution_clock::time_point start = std::chrono::high_resolution_clock::now();
     do
     {
+        count_t++;
           //cout << " time evolution: " << t << endl;
           if(eqref == 1)
           {
@@ -218,8 +220,12 @@ void simulation(std::vector<double> *u_1, std::vector<double> *beta, std::vector
 
           if(sortie == Unique)
           {
-                w_ofs << t << " " << *fnow << std::endl;
-                energy_ofs << t << " " << energy << std::endl;
+              if(count_t >= ech_t)
+              {
+                   w_ofs << t << " " << *fnow << std::endl;
+                   energy_ofs << t << " " << energy << std::endl;
+                   count_t = 0;
+              }
           }
 
     } while(t < tfinal); // end of time loop -----------------------------
@@ -255,12 +261,13 @@ void simulation(std::vector<double> *u_1, std::vector<double> *beta, std::vector
     delete fnext;
 }
 
-void simulation_par(std::vector<double> *u_1, std::vector<double> *beta, std::vector<double> *coeff, double const& dx, double const& dt, int const& eqref, int const& ucase, int const& Npos, double const& tfinal, double const& omega, double const& A, boundary_condition const& left_bc, double const& leftboundaryvalue, boundary_condition const& right_bc, double const& rightboundaryvalue, mode const& sortie, std::ofstream& w_ofs, std::ofstream& energy_ofs, std::ofstream& maxenergy_ofs)
+void simulation_par(std::vector<double> *u_1, std::vector<double> *beta, std::vector<double> *coeff, double const& dx, double const& dt, int const& eqref, int const& ucase, int const& Npos, double const& tfinal, double const& omega, double const& A, boundary_condition const& left_bc, double const& leftboundaryvalue, boundary_condition const& right_bc, double const& rightboundaryvalue, mode const& sortie, std::ofstream& w_ofs, std::ofstream& energy_ofs, std::ofstream& maxenergy_ofs, int ech_t)
 {
     std::vector<double> *fpast = new std::vector<double>(Npos);
     std::vector<double> *fnow = new std::vector<double>(Npos);
     std::vector<double> *fnext = new std::vector<double>(Npos);
     std::vector<double> *temp = NULL;
+    int count_t = 0;
 
 
      // initialize the first two time slices of f
@@ -296,6 +303,7 @@ void simulation_par(std::vector<double> *u_1, std::vector<double> *beta, std::ve
     std::chrono::high_resolution_clock::time_point start = std::chrono::high_resolution_clock::now();
     do
     {
+        count_t++;
           //cout << " time evolution: " << t << endl;
           if(eqref == 1)
           {
@@ -342,10 +350,11 @@ void simulation_par(std::vector<double> *u_1, std::vector<double> *beta, std::ve
           if(energy > maxenergy)
             maxenergy = energy;
 
-          if(sortie == Unique)
+          if(count_t >= ech_t)
           {
-                w_ofs << t << " " << *fnow << std::endl;
-                energy_ofs << t << " " << energy << std::endl;
+               w_ofs << t << " " << *fnow << std::endl;
+               energy_ofs << t << " " << energy << std::endl;
+               count_t = 0;
           }
 
     } while(t < tfinal); // end of time loop -----------------------------
