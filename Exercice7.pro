@@ -8,6 +8,9 @@ linux {
     QMAKE_CXXFLAGS_DEBUG += -Wall -Wextra
 
     QMAKE_CXXFLAGS_RELEASE += -O3
+    QMAKE_CXXFLAGS_RELEASE += -s
+    #QMAKE_CXXFLAGS_RELEASE += -march=nehalem
+    #QMAKE_CXXFLAGS_RELEASE += -static -static-libgcc -static-libstdc++
     QMAKE_CXXFLAGS_RELEASE += -march=native
 
     QMAKE_CXXFLAGS += -std=c++11

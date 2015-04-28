@@ -41,7 +41,7 @@ int main()
 
   provisoire = nom + "_energy.dat";
   ofstream energy_ofs (provisoire);
-  energy_ofs.precision(15);
+  energy_ofs.precision(20);
 
   provisoire = nom + "_maxenergy.dat";
   ofstream maxenergy_ofs (provisoire);

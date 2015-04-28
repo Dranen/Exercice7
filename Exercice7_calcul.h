@@ -78,7 +78,7 @@ private:
 double max(std::vector<double> const& A)
 {
     double b = 0;
-    for(int i = 0; i < A.size(); i++)
+    for(std::size_t i = 0; i < A.size(); i++)
     {
         if(A[i] > b)
         {
@@ -276,7 +276,7 @@ void simulation(std::vector<double> *u_1, std::vector<double> *beta, std::vector
     {
           if(sortie == convergence_CFL || sortie == convergence_Ninter)
           {
-            maxff = max(*fnow);
+             maxff = max(*fnow);
             w_ofs << dt << " " << dx << " " << maxf << " " << maxff << std::endl;
             energy_ofs << dt << " " << dx << " " << energy << std::endl;
           }
