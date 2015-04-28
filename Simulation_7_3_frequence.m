@@ -13,7 +13,7 @@ A = 0.1;
 omega = 0;
 bc_r = 1;
 nscan = 10000;
-omega_stop = 1000;
+omega_stop = 50;
 
 Simulation(nom, Ninter, xL, xR, equation, question, ul, ur, 1, 1, 1, CFL, tfinal, 0, 0, bc_l, bc_r, A, omega, 1, nscan, omega_stop, 0, 0, 1)
 
