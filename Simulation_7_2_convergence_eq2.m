@@ -18,7 +18,7 @@ Simulation([nom, '_dx'], Ninter, xL, xR, equation, question, u, u, 1, 1, 1, CFL,
 
 Ninter = 100;
 CFL = 0.01;
-CFL_stop = 1.1;
+CFL_stop = 0.9;
 
 Simulation([nom, '_dt'], Ninter, xL, xR, equation, question, u, u, 1, 1, 1, CFL, tfinal, 0, 0, bc_l, bc_r, A, omega, 2, nscan, 0, CFL_stop, 0, 1)
 

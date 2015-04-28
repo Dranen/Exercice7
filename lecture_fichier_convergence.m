@@ -16,6 +16,6 @@ energy = a(:,3:end);
 a = load([nom '_maxenergy.dat']);
 max = a(:,3:end);
 
-donnee = {x, u, dt, dx, maxf, energy, max,maxf_fin};
+donnee = {x, u, dt, dx, maxf, energy, max, maxf_fin};
 end
 

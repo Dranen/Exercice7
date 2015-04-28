@@ -1,12 +1,7 @@
 function Graphique_dx_maxf(dx,f, nom)
-s = size(f);
-maxf = zeros(s(2));
-for i = 1:s(2)
-maxf(i) = max(f(:,i));
-end
-
+f
 figure
-plot(dx,maxf);
+plot(dx,f);
 grid on;
 xlabel('dx [m]', 'FontSize', 20);
 ylabel('Maximum de f [m]', 'FontSize', 20);
