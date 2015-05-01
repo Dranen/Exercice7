@@ -1,5 +1,4 @@
 function Graphique_dt_maxf(dt,f, nom)
-f
 figure
 plot(dt,f);
 grid on;
