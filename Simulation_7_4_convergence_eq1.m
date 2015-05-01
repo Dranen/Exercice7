@@ -1,5 +1,5 @@
 nom = '7_4_convergence_eq1';
-Ninter_stop = 1000000;
+Ninter_stop = 100000;
 xL = 0;
 xR = 1000000;
 hplage = 15;
@@ -9,7 +9,7 @@ Ninter = 1000;
 equation = 1;
 question = 2;
 CFL = 0.25;
-nscan = 100;
+nscan = 30;
 tfinal = 7000;
 bc_l = 3;
 bc_r = 3;

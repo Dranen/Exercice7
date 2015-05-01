@@ -194,8 +194,14 @@ int main()
             {
                 cout << "dt=" << dt[jscan] << endl;
             }
-            simulation(u_1,beta,coeff,dx,dt[jscan],eqref,ucase,Npos,tfinal,omega_start,A,left_bc,leftboundaryvalue,right_bc,rightboundaryvalue,choix,w_ofs,energy_ofs,maxenergy_ofs, ech_t);
-
+            if(Npos > 1000)
+            {
+                simulation_par(u_1,beta,coeff,dx,dt[jscan],eqref,ucase,Npos,tfinal,omega_start,A,left_bc,leftboundaryvalue,right_bc,rightboundaryvalue,choix,w_ofs,energy_ofs,maxenergy_ofs, ech_t);
+            }
+            else
+            {
+                simulation(u_1,beta,coeff,dx,dt[jscan],eqref,ucase,Npos,tfinal,omega_start,A,left_bc,leftboundaryvalue,right_bc,rightboundaryvalue,choix,w_ofs,energy_ofs,maxenergy_ofs, ech_t);
+            }
         }
         delete coeff;
         delete u_1;
@@ -235,8 +241,14 @@ int main()
                 cout << "dx=" << dx[jscan] << endl;
                 cout << "jscan=" << jscan << endl;
             }
-            simulation(u_1,beta,coeff,dx[jscan],dt[jscan],eqref,ucase,Npos[jscan],tfinal,omega_start,A,left_bc,leftboundaryvalue,right_bc,rightboundaryvalue,choix,w_ofs,energy_ofs,maxenergy_ofs, ech_t);
-
+            if(Npos[jscan] > 1000)
+            {
+                simulation_par(u_1,beta,coeff,dx[jscan],dt[jscan],eqref,ucase,Npos[jscan],tfinal,omega_start,A,left_bc,leftboundaryvalue,right_bc,rightboundaryvalue,choix,w_ofs,energy_ofs,maxenergy_ofs, ech_t);
+            }
+            else
+            {
+                simulation(u_1,beta,coeff,dx[jscan],dt[jscan],eqref,ucase,Npos[jscan],tfinal,omega_start,A,left_bc,leftboundaryvalue,right_bc,rightboundaryvalue,choix,w_ofs,energy_ofs,maxenergy_ofs, ech_t);
+            }
             delete coeff;
             delete u_1;
             delete beta;

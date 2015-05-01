@@ -207,7 +207,7 @@ void simulation(std::vector<double> *u_1, std::vector<double> *beta, std::vector
                 #pragma omp for simd
                 for(int ip = 1; ip < (Npos - 1); ++ip)
                 {
-                    (*fnext)[ip] = 0.25*((*coeff)[ip+1]-(*coeff)[ip-1])*((*fnow)[ip+1]-(*fnow)[ip-1])*dt/dx + (*coeff)[ip]*((*fnow)[ip+1]-2*(*fnow)[ip]+(*fnow)[ip-1]) + 2*(*fnow)[ip] - (*fpast)[ip];
+                    (*fnext)[ip] = 0.25*((*coeff)[ip+1]-(*coeff)[ip-1])*((*fnow)[ip+1]-(*fnow)[ip-1]) + (*coeff)[ip]*((*fnow)[ip+1]-2*(*fnow)[ip]+(*fnow)[ip-1]) + 2*(*fnow)[ip] - (*fpast)[ip];
                 }
           }
           else
@@ -353,7 +353,7 @@ void simulation_par(std::vector<double> *u_1, std::vector<double> *beta, std::ve
                 #pragma omp parallel for simd
                 for(int ip = 1; ip < (Npos - 1); ++ip)
                 {
-                    (*fnext)[ip] = 0.25*((*coeff)[ip+1]-(*coeff)[ip-1])*((*fnow)[ip+1]-(*fnow)[ip-1])*dt/dx + (*coeff)[ip]*((*fnow)[ip+1]-2*(*fnow)[ip]+(*fnow)[ip-1]) + 2*(*fnow)[ip] - (*fpast)[ip];
+                    (*fnext)[ip] = 0.25*((*coeff)[ip+1]-(*coeff)[ip-1])*((*fnow)[ip+1]-(*fnow)[ip-1]) + (*coeff)[ip]*((*fnow)[ip+1]-2*(*fnow)[ip]+(*fnow)[ip-1]) + 2*(*fnow)[ip] - (*fpast)[ip];
                 }
           }
           else
