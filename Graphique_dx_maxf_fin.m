@@ -1,7 +1,6 @@
 function Graphique_dx_maxf_fin(dx,f, nom)
-f
 figure
-plot(dx,f);
+loglog(dx,f);
 grid on;
 xlabel('dx [m]', 'FontSize', 20);
 ylabel('Maximum de f_{fin} [m]', 'FontSize', 20);

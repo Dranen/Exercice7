@@ -1,6 +1,6 @@
 function Graphique_dx_energie(dx,E, nom)
 figure
-plot(dx,E);
+loglog(dx,E);
 grid on;
 xlabel('dx [m]', 'FontSize', 20);
 ylabel('E [J]', 'FontSize', 20);

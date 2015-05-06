@@ -1,4 +1,4 @@
-nom = '7_2_frequence_t200';
+nom = '7_2_frequence_t140';
 xL = 0;
 xR = 3;
 u = 1;
@@ -6,7 +6,7 @@ Ninter = 100;
 equation = 1;
 question = 0;
 CFL = 0.25;
-tfinal = 200;
+tfinal = 140;
 bc_l = 2;
 A = 1;
 omega = 0;

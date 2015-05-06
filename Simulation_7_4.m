@@ -1,11 +1,11 @@
-nom = '7_4_eq3';
+nom = '7_4_eq4';
 xL = 0;
 xR = 1000000;
 hplage = 15;
 hocean = 6000;
 xocean = 500000;
 Ninter = 100000;
-equation = 3;
+equation = 4;
 question = 2;
 CFL = 0.25;
 tfinal = 7000;

@@ -1,7 +1,6 @@
 function Graphique_dt_maxf_fin(dt,f, nom)
-f
 figure
-plot(dt,f);
+loglog(dt,f);
 grid on;
 xlabel('dt [s]', 'FontSize', 20);
 ylabel('Maximum de f_{fin} [m]', 'FontSize', 20);
