@@ -108,11 +108,11 @@ int main()
             (*coeff)[ip] = (*beta)[ip] * (*beta)[ip];
         }
 
-        if(Npos > 1000)
+        /*if(Npos > 1000)
         {
             simulation_par(u_1,beta,coeff,dx,dt,eqref,ucase,Npos,tfinal,omega_start,A,left_bc,leftboundaryvalue,right_bc,rightboundaryvalue,choix,w_ofs,energy_ofs,maxenergy_ofs, ech_t);
         }
-        else
+        else*/
         {
             simulation(u_1,beta,coeff,dx,dt,eqref,ucase,Npos,tfinal,omega_start,A,left_bc,leftboundaryvalue,right_bc,rightboundaryvalue,choix,w_ofs,energy_ofs,maxenergy_ofs, ech_t);
         }
@@ -149,10 +149,10 @@ int main()
             omega[jscan] = omega_start + static_cast<double>(jscan)*((omega_stop-omega_start)/static_cast<double>(nscan-1));
         }
 
-        #pragma omp parallel for default(shared) schedule(dynamic)
+        //#pragma omp parallel for schedule(dynamic)
         for(int jscan = 0; jscan < nscan; ++jscan)
         {
-            #pragma omp critical
+            //#pragma omp critical
             {
                 cout << "Scan frequency: " << jscan << endl;
             }
@@ -190,15 +190,15 @@ int main()
                 (*coeff)[ip] = (*beta)[ip] * (*beta)[ip];
             }
 
-            #pragma omp critical
+            //#pragma omp critical
             {
                 cout << "dt=" << dt[jscan] << endl;
             }
-            if(Npos > 1000)
+            /*if(Npos > 1000)
             {
                 simulation_par(u_1,beta,coeff,dx,dt[jscan],eqref,ucase,Npos,tfinal,omega_start,A,left_bc,leftboundaryvalue,right_bc,rightboundaryvalue,choix,w_ofs,energy_ofs,maxenergy_ofs, ech_t);
             }
-            else
+            else*/
             {
                 simulation(u_1,beta,coeff,dx,dt[jscan],eqref,ucase,Npos,tfinal,omega_start,A,left_bc,leftboundaryvalue,right_bc,rightboundaryvalue,choix,w_ofs,energy_ofs,maxenergy_ofs, ech_t);
             }
@@ -235,17 +235,17 @@ int main()
                 (*coeff)[ip] = (*beta)[ip] * (*beta)[ip];
             }
 
-            #pragma omp critical
+            //#pragma omp critical
             {
                 cout << "dt=" << dt[jscan] << endl;
                 cout << "dx=" << dx[jscan] << endl;
                 cout << "jscan=" << jscan << endl;
             }
-            if(Npos[jscan] > 1000)
+            /*if(Npos[jscan] > 1000)
             {
                 simulation_par(u_1,beta,coeff,dx[jscan],dt[jscan],eqref,ucase,Npos[jscan],tfinal,omega_start,A,left_bc,leftboundaryvalue,right_bc,rightboundaryvalue,choix,w_ofs,energy_ofs,maxenergy_ofs, ech_t);
             }
-            else
+            else*/
             {
                 simulation(u_1,beta,coeff,dx[jscan],dt[jscan],eqref,ucase,Npos[jscan],tfinal,omega_start,A,left_bc,leftboundaryvalue,right_bc,rightboundaryvalue,choix,w_ofs,energy_ofs,maxenergy_ofs, ech_t);
             }
