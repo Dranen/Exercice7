@@ -1,6 +1,7 @@
 figure
 contourf(x,t,f, 'LineStyle', 'none');
 grid on;
+colorbar;
 xlabel('x [m]', 'FontSize', 20);
 ylabel('t [s]', 'FontSize', 20);
 saveas(gcf, [nom, '_xtf.fig'])

@@ -6,7 +6,7 @@ for i = 1:(a(1))
     ax = gca;
     ax.YLim = s;
     ax.YLimMode = 'manual';
-    plot(ax, x(1:parse_x:end),f(i,1:parse_x:end))
+    plot(ax,x,f(i,:))
     ax.YLim = s;
     ax.YLimMode = 'manual';
     pause(0.01)

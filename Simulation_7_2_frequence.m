@@ -1,18 +1,18 @@
-nom = '7_2_frequence';
+nom = '7_2_frequence_t200';
 xL = 0;
 xR = 3;
 u = 1;
-Ninter = 1000;
+Ninter = 100;
 equation = 1;
 question = 0;
 CFL = 0.25;
-tfinal = 100;
+tfinal = 200;
 bc_l = 2;
-A = 0.1;
+A = 1;
 omega = 0;
 bc_r = 1;
-nscan = 10000;
-omega_stop = 50;
+nscan = 2000;
+omega_stop = 20;
 
 Simulation(nom, Ninter, xL, xR, equation, question, u, u, 1, 1, 1, CFL, tfinal, 0, 0, bc_l, bc_r, A, omega, 1, nscan, omega_stop, 0, 0, 1)
 

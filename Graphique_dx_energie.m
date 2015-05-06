@@ -5,6 +5,6 @@ grid on;
 xlabel('dx [m]', 'FontSize', 20);
 ylabel('E [J]', 'FontSize', 20);
 saveas(gcf, [nom, '_dx_E.fig'])
-saveas(gcf, [nom, '_dt_E.eps'], 'epsc')
+saveas(gcf, [nom, '_dx_E.eps'], 'epsc')
 end
 
